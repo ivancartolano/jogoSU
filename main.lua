@@ -1,5 +1,7 @@
 local mapa = require "mapa"
-local character = require "character"
+local Character = require "character"
+local steven = Character:new()
+local connie = Character:new()
 local imageFile
 local grassImage
 local dirtImage
@@ -13,17 +15,20 @@ function love.load()
 	waterImage = love.graphics.newImage("water64.png")
 	imageFile = love.graphics.newImage("steven-universe-sprites.png")
 	
-	character:carregar(0,0,imageFile)
+	steven:carregar(0,0,0,0,1,imageFile)
+	connie:carregar(0,4,80,0,7,imageFile)
 end
 
 function love.update(dt)
-	character:moveDown(dt)
+	steven:moveDown(dt)
+	connie:moveRight(dt)
 end
 
 
 function love.draw()
 	mapa:draw(grassImage, dirtImage, waterImage)
-	character:desenhar(imageFile)
+	steven:desenhar(imageFile)
+	connie:desenhar(imageFile)
 end
 
 
