@@ -23,26 +23,15 @@ local Character = {
 		}
 		
 	function Character:new(o)
-		o = o or {}
+		o =  {}
 		setmetatable(o,self)
 		self.__index = self
 		return o
 	end
 	
-	function Character:carregar(x,y,mapaX,mapaY,initialFrame,imageFile)
+	function Character:carregar(mapaX,mapaY,initialFrame, sprites,imageFile)
 		
-		self.frames[1] = love.graphics.newQuad(x*32,y*32,32,32, imageFile:getDimensions())
-		self.frames[2] = love.graphics.newQuad((x+1)*32,y*32,32,32, imageFile:getDimensions())
-		self.frames[3] = love.graphics.newQuad((x+2)*32,y*32,32,32, imageFile:getDimensions())
-		self.frames[4] = love.graphics.newQuad(x*32,(y+1)*32,32,32, imageFile:getDimensions())
-		self.frames[5] = love.graphics.newQuad((x+1)*32,(y+1)*32,32,32, imageFile:getDimensions())
-		self.frames[6] = love.graphics.newQuad((x+2)*32,(y+1)*32,32,32, imageFile:getDimensions())
-		self.frames[7] = love.graphics.newQuad(x*32,(y+2)*32,32,32, imageFile:getDimensions())
-		self.frames[8] = love.graphics.newQuad((x+1)*32,(y+2)*32,32,32, imageFile:getDimensions())
-		self.frames[9] = love.graphics.newQuad((x+2)*32,(y+2)*32,32,32, imageFile:getDimensions())
-		self.frames[10] = love.graphics.newQuad(x*32,(y+3)*32,32,32, imageFile:getDimensions())
-		self.frames[11] = love.graphics.newQuad((x+2)*32,(y+3)*32,32,32, imageFile:getDimensions())
-		self.frames[12] = love.graphics.newQuad((x+2)*32,(y+3)*32,32,32, imageFile:getDimensions())
+		self.frames = sprites
 		
 		self.currentFrame = initialFrame
 		self.activeFrame = self.frames[self.currentFrame]
