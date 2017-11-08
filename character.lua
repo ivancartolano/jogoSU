@@ -61,10 +61,30 @@ local Character = {
 		end
 	end
 	
+	function Character:moveUp(dt)
+		self.elapsedTime = self.elapsedTime +dt
+	
+		if(self.elapsedTime > 0.25) then
+			if (self.currentFrame < 12) then
+				self.currentFrame = self.currentFrame + 1
+			else
+				self.currentFrame = 10
+			end
+			self.activeFrame = self.frames[self.currentFrame]
+			self.elapsedTime = 0
+		end
+	
+		if (self.currentY > 0) then
+			self.currentY = self.currentY - 1
+		else
+			self.currentY = love.graphics.getHeight()
+		end
+	end
+	
 	function Character:moveRight(dt)
 		self.elapsedTime = self.elapsedTime +dt
 	
-		if(self.elapsedTime > 0.75) then
+		if(self.elapsedTime > 0.25) then
 			if (self.currentFrame < 9) then
 				self.currentFrame = self.currentFrame + 1
 			else
@@ -78,6 +98,27 @@ local Character = {
 			self.currentX = self.currentX + 1
 		else
 			self.currentX = 0
+		end
+	
+	end
+	
+	function Character:moveLeft(dt)
+		self.elapsedTime = self.elapsedTime +dt
+	
+		if(self.elapsedTime > 0.25) then
+			if (self.currentFrame < 6) then
+				self.currentFrame = self.currentFrame + 1
+			else
+				self.currentFrame = 4
+			end
+			self.activeFrame = self.frames[self.currentFrame]
+			self.elapsedTime = 0
+		end
+	
+		if (self.currentX < 0) then
+			self.currentX = self.currentX - 1
+		else
+			self.currentX = love.graphics.getWidth()
 		end
 	
 	end
