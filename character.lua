@@ -3,12 +3,15 @@ local Character = {
 	frames = {},
 	activeFrame,
 	currentFrame = 1,
+	coordenadaMatricialX=1,
+	coordenadaMatricialY=1,
 	currentX,
 	currentY = 0,
+	contadorIncremento = 0,
 	elapsedTime = 0,
 
 	bitmap = {
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 		{2,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,0,0,1},
 		{3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,0,1},
 		{4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,0,1},
@@ -21,6 +24,13 @@ local Character = {
 		}
 		
 		}
+		
+	function stand(dt)
+		emMovimento = false
+	end	
+		
+	emMovimento= false
+	acao = {move = stand}
 		
 	function Character:new(o)
 		o =  {}
@@ -37,90 +47,161 @@ local Character = {
 		self.activeFrame = self.frames[self.currentFrame]
 		self.currentX = mapaX
 		self.currentY = mapaY
+		--self.elapsedTime = 0
+		
+	end
+	
+	function Character:movimento(dt)
+	if (not(emMovimento)) then
+		movimentoPossivel = {}
+		
+		if (self.coordenadaMatricialY<20) then
+			if (self.bitmap[self.coordenadaMatricialX][self.coordenadaMatricialY + 1] == 0)then
+				table.insert(movimentoPossivel, 'down')
+			end
+		end
+		if (self.coordenadaMatricialY>1) then
+			if (self.bitmap[self.coordenadaMatricialX][self.coordenadaMatricialY - 1] == 0) then
+				table.insert(movimentoPossivel, 'up')
+			end
+		end
+		if (self.coordenadaMatricialX<10) then
+			if (self.bitmap[self.coordenadaMatricialX + 1][self.coordenadaMatricialY] == 0) then
+				table.insert(movimentoPossivel, 'right')
+			end
+		end
+		if (self.coordenadaMatricialY>1) then
+			if (self.bitmap[self.coordenadaMatricialX - 1][self.coordenadaMatricialY] == 0) then
+				table.insert(movimentoPossivel, 'left')
+			end
+		end 
+		
+		movimentoEscolhido = movimentoPossivel[math.random(#movimentoPossivel)]
+		
+		if movimentoEscolhido == 'down' then
+			acao = {move = self.moveDown}
+		elseif movimentoEscolhido == 'up' then
+			--acao = {move = self:moveUp(dt)}
+		elseif movimentoEscolhido == 'right' then
+			--acao = {move = self:moveRight(dt)}
+		elseif movimentoEscolhido == 'left' then
+			--acao = {move = self:moveLeft(dt)}
+		else
+			acao = {move = stand}
+		end
+		
+	end
+	
+	acao:move(dt)
+end 
+
+	
+
+	function Character:moveDown(dt)
+		self.elapsedTime = self.elapsedTime +dt
+		self.emMovimento = true
+		
+		if (self.contadorIncremento<65) then
+			if(self.elapsedTime > 0.20) then
+				if (self.currentFrame < 3) then
+					self.currentFrame = self.currentFrame + 1
+				else
+					self.currentFrame = 1
+				end
+				self.activeFrame = self.frames[self.currentFrame]
+				self.elapsedTime = 0
+			end
+	
+			self.currentY = self.currentY + 1
+			self.contadorIncremento = self.contadorIncremento + 1
+		
+		else
+			self.emMovimento = false
+			self.contadorIncremento = 0
+			self.coordenadaMatricialY = self.coordenadaMatricialY + 1
+		end
 		
 	end
 	
 	
-	function Character:moveDown(dt)
-		self.elapsedTime = self.elapsedTime +dt
-	
-		if(self.elapsedTime > 0.25) then
-			if (self.currentFrame < 3) then
-				self.currentFrame = self.currentFrame + 1
-			else
-				self.currentFrame = 1
-			end
-			self.activeFrame = self.frames[self.currentFrame]
-			self.elapsedTime = 0
-		end
-	
-		if (self.currentY < love.graphics.getHeight()) then
-			self.currentY = self.currentY + 1
-		else
-			self.currentY = 0
-		end
-	end
-	
 	function Character:moveUp(dt)
 		self.elapsedTime = self.elapsedTime +dt
-	
-		if(self.elapsedTime > 0.25) then
-			if (self.currentFrame < 12) then
-				self.currentFrame = self.currentFrame + 1
-			else
-				self.currentFrame = 10
+		self.emMovimento = true
+		
+		if (contadorIncremento<65) then
+			if(self.elapsedTime > 0.20) then
+				if (self.currentFrame < 12) then
+					self.currentFrame = self.currentFrame + 1
+				else
+					self.currentFrame = 10
+				end
+				self.activeFrame = self.frames[self.currentFrame]
+				self.elapsedTime = 0
 			end
-			self.activeFrame = self.frames[self.currentFrame]
-			self.elapsedTime = 0
-		end
 	
-		if (self.currentY > 0) then
 			self.currentY = self.currentY - 1
+			self.contadorIncremento = self.contadorIncremento + 1
+		
 		else
-			self.currentY = love.graphics.getHeight()
+			self.emMovimento = false
+			self.contadorIncremento = 0
+			self.coordenadaMatricialY = self.coordenadaMatricialY - 1
 		end
+		
 	end
+	
 	
 	function Character:moveRight(dt)
 		self.elapsedTime = self.elapsedTime +dt
-	
-		if(self.elapsedTime > 0.25) then
-			if (self.currentFrame < 9) then
-				self.currentFrame = self.currentFrame + 1
-			else
-				self.currentFrame = 7
+		self.emMovimento = true
+		
+		if (contadorIncremento<65) then
+			if(self.elapsedTime > 0.20) then
+				if (self.currentFrame < 12) then
+					self.currentFrame = self.currentFrame + 1
+				else
+					self.currentFrame = 10
+				end
+				self.activeFrame = self.frames[self.currentFrame]
+				self.elapsedTime = 0
 			end
-			self.activeFrame = self.frames[self.currentFrame]
-			self.elapsedTime = 0
-		end
 	
-		if (self.currentX < love.graphics.getWidth()) then
 			self.currentX = self.currentX + 1
+			self.contadorIncremento = self.contadorIncremento + 1
+		
 		else
-			self.currentX = 0
+			self.emMovimento = false
+			self.contadorIncremento = 0
+			self.coordenadaMatricialX = self.coordenadaMatricialX + 1
 		end
-	
+		
 	end
+	
 	
 	function Character:moveLeft(dt)
 		self.elapsedTime = self.elapsedTime +dt
-	
-		if(self.elapsedTime > 0.25) then
-			if (self.currentFrame < 6) then
-				self.currentFrame = self.currentFrame + 1
-			else
-				self.currentFrame = 4
+		self.emMovimento = true
+		
+		if (contadorIncremento<65) then
+			if(self.elapsedTime > 0.20) then
+				if (self.currentFrame < 12) then
+					self.currentFrame = self.currentFrame + 1
+				else
+					self.currentFrame = 10
+				end
+				self.activeFrame = self.frames[self.currentFrame]
+				self.elapsedTime = 0
 			end
-			self.activeFrame = self.frames[self.currentFrame]
-			self.elapsedTime = 0
-		end
 	
-		if (self.currentX < 0) then
 			self.currentX = self.currentX - 1
+			self.contadorIncremento = self.contadorIncremento + 1
+		
 		else
-			self.currentX = love.graphics.getWidth()
+			self.emMovimento = false
+			self.contadorIncremento = 0
+			self.coordenadaMatricialX = self.coordenadaMatricialX - 1
 		end
-	
+		
 	end
 	
 	--function character:atualizar()
