@@ -9,6 +9,7 @@ local Character = {
 	currentY = 0,
 	contadorIncremento = 0,
 	elapsedTime = 0,
+	acao,
 
 	bitmap = {
 		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -30,7 +31,7 @@ local Character = {
 	end	
 		
 	emMovimento= false
-	acao = {move = stand}
+	--acao = {move = stand}
 		
 	function Character:new(o)
 		o =  {}
@@ -55,7 +56,7 @@ local Character = {
 	if (not(emMovimento)) then
 		movimentoPossivel = {}
 		
-		if (self.coordenadaMatricialY<20) then
+		if (self.coordenadaMatricialY<10) then
 			if (self.bitmap[self.coordenadaMatricialX][self.coordenadaMatricialY + 1] == 0)then
 				table.insert(movimentoPossivel, 'down')
 			end
@@ -65,12 +66,12 @@ local Character = {
 				table.insert(movimentoPossivel, 'up')
 			end
 		end
-		if (self.coordenadaMatricialX<10) then
+		if (self.coordenadaMatricialX<20) then
 			if (self.bitmap[self.coordenadaMatricialX + 1][self.coordenadaMatricialY] == 0) then
 				table.insert(movimentoPossivel, 'right')
 			end
 		end
-		if (self.coordenadaMatricialY>1) then
+		if (self.coordenadaMatricialX>1) then
 			if (self.bitmap[self.coordenadaMatricialX - 1][self.coordenadaMatricialY] == 0) then
 				table.insert(movimentoPossivel, 'left')
 			end
@@ -79,11 +80,11 @@ local Character = {
 		movimentoEscolhido = movimentoPossivel[math.random(#movimentoPossivel)]
 		
 		if movimentoEscolhido == 'down' then
-			acao = {move = self.moveDown}
-		elseif movimentoEscolhido == 'up' then
-			--acao = {move = self:moveUp(dt)}
+			self.acao = self.moveDown
+		elseif (movimentoEscolhido == 'up') then
+			--acao = {move = self.moveUp}
 		elseif movimentoEscolhido == 'right' then
-			--acao = {move = self:moveRight(dt)}
+			--acao = self.moveRight
 		elseif movimentoEscolhido == 'left' then
 			--acao = {move = self:moveLeft(dt)}
 		else
@@ -92,7 +93,7 @@ local Character = {
 		
 	end
 	
-	acao:move(dt)
+	self:acao(dt)
 end 
 
 	
@@ -114,11 +115,19 @@ end
 	
 			self.currentY = self.currentY + 1
 			self.contadorIncremento = self.contadorIncremento + 1
+			
+			--print(self.currentY) 
+			--print(self.contadorIncremento)
 		
 		else
 			self.emMovimento = false
 			self.contadorIncremento = 0
 			self.coordenadaMatricialY = self.coordenadaMatricialY + 1
+			
+			--print(self.emMovimento)
+			--print(self.contadorIncremento)
+			--print(self.coordenadaMatricialY)
+			
 		end
 		
 	end
