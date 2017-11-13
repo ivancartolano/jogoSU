@@ -10,10 +10,12 @@ local Character = {
 	contadorIncremento = 0,
 	elapsedTime = 0,
 	acao,
+	emMovimento= false,
+	contador= 0,
 
 	bitmap = {
 		{0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{2,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,0,0,1},
+		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,0,0,1},
 		{3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,0,1},
 		{4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,0,1},
 		{5,0,0,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1},
@@ -26,11 +28,11 @@ local Character = {
 		
 		}
 		
-	function stand(dt)
+	function Character:stand(dt)
 		emMovimento = false
 	end	
 		
-	emMovimento= false
+	
 	--acao = {move = stand}
 		
 	function Character:new(o)
@@ -53,29 +55,32 @@ local Character = {
 	end
 	
 	function Character:movimento(dt)
-	if (not(emMovimento)) then
+	self.contador = self.contador +1
+--if (self.contador < 100) then
+	print(self.emMovimento)
+	if (not(self.emMovimento)) then
 		movimentoPossivel = {}
 		
 		if (self.coordenadaMatricialY<10) then
-			if (self.bitmap[self.coordenadaMatricialX][self.coordenadaMatricialY +1] == 0)then
-				print(self.bitmap[self.coordenadaMatricialX][self.coordenadaMatricialY + 1] == 0)
-				print('x= '.. self.coordenadaMatricialX.. 'y= '.. self.coordenadaMatricialY)
-				print('bitmap['.. self.coordenadaMatricialX.. ']['.. self.coordenadaMatricialY.. '] = '.. self.bitmap[self.coordenadaMatricialX][self.coordenadaMatricialY])
+			if (self.bitmap[self.coordenadaMatricialY +1][self.coordenadaMatricialX] == 0)then
+				--print(self.bitmap[self.coordenadaMatricialX][self.coordenadaMatricialY + 1] == 0)
+				--print('x= '.. self.coordenadaMatricialX.. 'y= '.. self.coordenadaMatricialY)
+				--print('bitmap['.. self.coordenadaMatricialX.. ']['.. self.coordenadaMatricialY.. '] = '.. self.bitmap[self.coordenadaMatricialX][self.coordenadaMatricialY])
 				table.insert(movimentoPossivel, 'down')
 			end
 		end
 		if (self.coordenadaMatricialY>1) then
-			if (self.bitmap[self.coordenadaMatricialX][self.coordenadaMatricialY - 1] == 0) then
+			if (self.bitmap[self.coordenadaMatricialY - 1][self.coordenadaMatricialX] == 0) then
 				table.insert(movimentoPossivel, 'up')
 			end
 		end
 		if (self.coordenadaMatricialX<20) then
-			if (self.bitmap[self.coordenadaMatricialX + 1][self.coordenadaMatricialY] == 0) then
+			if (self.bitmap[self.coordenadaMatricialY][self.coordenadaMatricialX + 1] == 0) then
 				table.insert(movimentoPossivel, 'right')
 			end
 		end
 		if (self.coordenadaMatricialX>1) then
-			if (self.bitmap[self.coordenadaMatricialX - 1][self.coordenadaMatricialY] == 0) then
+			if (self.bitmap[self.coordenadaMatricialY][self.coordenadaMatricialX - 1] == 0) then
 				table.insert(movimentoPossivel, 'left')
 			end
 		end 
@@ -87,22 +92,27 @@ local Character = {
 		elseif (movimentoEscolhido == 'up') then
 			--self.acao = self.moveUp
 			--acao = {move = self.moveUp}
+			self.acao = self.moveUp
 		elseif movimentoEscolhido == 'right' then
 			--acao = self.moveRight
+			self.acao = self.moveRight
 		elseif movimentoEscolhido == 'left' then
 			--acao = {move = self:moveLeft(dt)}
+			self.acao = self.moveLeft
 		else
-			acao = {move = stand}
+			self.acao = self.stand
 		end
 		
 	end
-	
+	print('x= '.. self.coordenadaMatricialX.. 'y= '.. self.coordenadaMatricialY)
 	self:acao(dt)
+--end
 end 
 
 	
 
 	function Character:moveDown(dt)
+		print('moveDown'.. self.contadorIncremento)
 		self.elapsedTime = self.elapsedTime +dt
 		self.emMovimento = true
 		
@@ -120,7 +130,7 @@ end
 			self.currentY = self.currentY + 1
 			self.contadorIncremento = self.contadorIncremento + 1
 			
-			print(self.currentY) 
+			--print(self.currentY) 
 			--print(self.contadorIncremento)
 		
 		else
@@ -138,10 +148,12 @@ end
 	
 	
 	function Character:moveUp(dt)
+		print('moveUp'.. self.contadorIncremento)
+		
 		self.elapsedTime = self.elapsedTime +dt
 		self.emMovimento = true
 		
-		if (contadorIncremento<65) then
+		if (self.contadorIncremento<65) then
 			if(self.elapsedTime > 0.20) then
 				if (self.currentFrame < 12) then
 					self.currentFrame = self.currentFrame + 1
@@ -165,15 +177,17 @@ end
 	
 	
 	function Character:moveRight(dt)
+		print('moveRight'.. self.contadorIncremento)
+	
 		self.elapsedTime = self.elapsedTime +dt
 		self.emMovimento = true
 		
-		if (contadorIncremento<65) then
+		if (self.contadorIncremento<65) then
 			if(self.elapsedTime > 0.20) then
-				if (self.currentFrame < 12) then
+				if (self.currentFrame < 9) then
 					self.currentFrame = self.currentFrame + 1
 				else
-					self.currentFrame = 10
+					self.currentFrame = 7
 				end
 				self.activeFrame = self.frames[self.currentFrame]
 				self.elapsedTime = 0
@@ -192,15 +206,17 @@ end
 	
 	
 	function Character:moveLeft(dt)
+		print('moveLeft '.. self.contadorIncremento)
+	
 		self.elapsedTime = self.elapsedTime +dt
 		self.emMovimento = true
 		
-		if (contadorIncremento<65) then
+		if (self.contadorIncremento<65) then
 			if(self.elapsedTime > 0.20) then
-				if (self.currentFrame < 12) then
+				if (self.currentFrame < 6) then
 					self.currentFrame = self.currentFrame + 1
 				else
-					self.currentFrame = 10
+					self.currentFrame = 4
 				end
 				self.activeFrame = self.frames[self.currentFrame]
 				self.elapsedTime = 0
