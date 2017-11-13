@@ -12,7 +12,7 @@ local Character = {
 	acao,
 
 	bitmap = {
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 		{2,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,0,0,1},
 		{3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,0,1},
 		{4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,0,1},
@@ -57,7 +57,10 @@ local Character = {
 		movimentoPossivel = {}
 		
 		if (self.coordenadaMatricialY<10) then
-			if (self.bitmap[self.coordenadaMatricialX][self.coordenadaMatricialY + 1] == 0)then
+			if (self.bitmap[self.coordenadaMatricialX][self.coordenadaMatricialY +1] == 0)then
+				print(self.bitmap[self.coordenadaMatricialX][self.coordenadaMatricialY + 1] == 0)
+				print('x= '.. self.coordenadaMatricialX.. 'y= '.. self.coordenadaMatricialY)
+				print('bitmap['.. self.coordenadaMatricialX.. ']['.. self.coordenadaMatricialY.. '] = '.. self.bitmap[self.coordenadaMatricialX][self.coordenadaMatricialY])
 				table.insert(movimentoPossivel, 'down')
 			end
 		end
@@ -82,6 +85,7 @@ local Character = {
 		if movimentoEscolhido == 'down' then
 			self.acao = self.moveDown
 		elseif (movimentoEscolhido == 'up') then
+			--self.acao = self.moveUp
 			--acao = {move = self.moveUp}
 		elseif movimentoEscolhido == 'right' then
 			--acao = self.moveRight
@@ -116,7 +120,7 @@ end
 			self.currentY = self.currentY + 1
 			self.contadorIncremento = self.contadorIncremento + 1
 			
-			--print(self.currentY) 
+			print(self.currentY) 
 			--print(self.contadorIncremento)
 		
 		else
