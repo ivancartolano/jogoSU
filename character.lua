@@ -116,6 +116,10 @@ end
 		self.elapsedTime = self.elapsedTime +dt
 		self.emMovimento = true
 		
+		if (self.contadorIncremento == 0) then
+			self.currentFrame = 1
+		end
+		
 		if (self.contadorIncremento<65) then
 			if(self.elapsedTime > 0.20) then
 				if (self.currentFrame < 3) then
@@ -153,6 +157,10 @@ end
 		self.elapsedTime = self.elapsedTime +dt
 		self.emMovimento = true
 		
+		if (self.contadorIncremento == 0) then
+			self.currentFrame = 10
+		end
+		
 		if (self.contadorIncremento<65) then
 			if(self.elapsedTime > 0.20) then
 				if (self.currentFrame < 12) then
@@ -182,6 +190,10 @@ end
 		self.elapsedTime = self.elapsedTime +dt
 		self.emMovimento = true
 		
+		if (self.contadorIncremento == 0) then
+			self.currentFrame = 7
+		end
+		
 		if (self.contadorIncremento<65) then
 			if(self.elapsedTime > 0.20) then
 				if (self.currentFrame < 9) then
@@ -210,6 +222,10 @@ end
 	
 		self.elapsedTime = self.elapsedTime +dt
 		self.emMovimento = true
+		
+		if (self.contadorIncremento == 0) then
+			self.currentFrame = 4
+		end
 		
 		if (self.contadorIncremento<65) then
 			if(self.elapsedTime > 0.20) then
