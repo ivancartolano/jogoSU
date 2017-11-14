@@ -12,6 +12,7 @@ local Character = {
 	acao,
 	emMovimento= false,
 	contador= 0,
+	nome,
 
 	bitmap = {
 		{0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -42,29 +43,33 @@ local Character = {
 		return o
 	end
 	
-	function Character:carregar(mapaX,mapaY,initialFrame, sprites,imageFile)
+	function Character:carregar(mapaX,mapaY, coorMatricialX, coorMatricialY, initialFrame, sprites,imageFile, onome)
 		
 		self.frames = sprites
-		
 		self.currentFrame = initialFrame
 		self.activeFrame = self.frames[self.currentFrame]
 		self.currentX = mapaX
 		self.currentY = mapaY
+		self.coordenadaMatricialX= coorMatricialX
+		self.coordenadaMatricialX = coorMatricialY
+		self.nome = onome
+		
 		--self.elapsedTime = 0
 		
 	end
 	
 	function Character:movimento(dt)
 	self.contador = self.contador +1
---if (self.contador < 100) then
+if (self.contador < 500) then
 	print(self.emMovimento)
+	--print(self.nome.. ' '.. self.contador)
 	if (not(self.emMovimento)) then
 		movimentoPossivel = {}
 		
 		if (self.coordenadaMatricialY<10) then
 			if (self.bitmap[self.coordenadaMatricialY +1][self.coordenadaMatricialX] == 0)then
 				--print(self.bitmap[self.coordenadaMatricialX][self.coordenadaMatricialY + 1] == 0)
-				--print('x= '.. self.coordenadaMatricialX.. 'y= '.. self.coordenadaMatricialY)
+				print('x= '.. self.coordenadaMatricialX.. 'y= '.. self.coordenadaMatricialY)
 				--print('bitmap['.. self.coordenadaMatricialX.. ']['.. self.coordenadaMatricialY.. '] = '.. self.bitmap[self.coordenadaMatricialX][self.coordenadaMatricialY])
 				table.insert(movimentoPossivel, 'down')
 			end
@@ -104,9 +109,9 @@ local Character = {
 		end
 		
 	end
-	print('x= '.. self.coordenadaMatricialX.. 'y= '.. self.coordenadaMatricialY)
+	print(self.nome..' x= '.. self.coordenadaMatricialX.. ' y= '.. self.coordenadaMatricialY)
 	self:acao(dt)
---end
+end
 end 
 
 	

@@ -2,7 +2,7 @@ local mapa = require "mapa"
 local Character = require "Character"
 local Sprite = require "Sprite"
 local steven = Character:new()
---local connie = Character:new()
+local connie = Character:new()
 --local personagen = Character:new()
 local stevenSprites
 local connieSprites
@@ -22,14 +22,14 @@ function love.load()
 	stevenSprites = Sprite:preencherFrames(0,0,imageFile)
 	connieSprites = Sprite:preencherFrames(0,4,imageFile)
 	
-	steven:carregar(32,32,1, stevenSprites,imageFile)
-	--connie:carregar(80,0,7,connieSprites,imageFile)
+	steven:carregar(32,32,1,1,1, stevenSprites,imageFile, 'steven')
+	connie:carregar(32,96,1,2,7,connieSprites,imageFile, 'connie')
 	--personagen:carregar(150,0,7, stevenSprites,imageFile)
 end
 
 function love.update(dt)
 	steven:movimento(dt)
-	--connie:moveRight(dt)
+	connie:movimento(dt)
 	--personagen:moveRight(dt)
 end
 
@@ -37,7 +37,7 @@ end
 function love.draw()
 	mapa:draw(grassImage, dirtImage, waterImage)
 	steven:desenhar(imageFile)
-	--connie:desenhar(imageFile)
+	connie:desenhar(imageFile)
 	--personagen:desenhar(imageFile)
 end
 
