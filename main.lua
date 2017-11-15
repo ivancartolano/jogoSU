@@ -23,7 +23,7 @@ function love.load()
 	connieSprites = Sprite:preencherFrames(0,4,imageFile)
 	
 	steven:carregar(32,32,1,1,1, stevenSprites,imageFile, 'steven')
-	connie:carregar(32,96,1,2,7,connieSprites,imageFile, 'connie')
+	connie:carregar(32,96,2,1,7,connieSprites,imageFile, 'connie')
 	--personagen:carregar(150,0,7, stevenSprites,imageFile)
 end
 

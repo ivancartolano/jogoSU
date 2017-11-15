@@ -51,7 +51,7 @@ local Character = {
 		self.currentX = mapaX
 		self.currentY = mapaY
 		self.coordenadaMatricialX= coorMatricialX
-		self.coordenadaMatricialX = coorMatricialY
+		self.coordenadaMatricialY = coorMatricialY
 		self.nome = onome
 		
 		--self.elapsedTime = 0
@@ -60,7 +60,7 @@ local Character = {
 	
 	function Character:movimento(dt)
 	self.contador = self.contador +1
-if (self.contador < 500) then
+if (self.contador < 650) then
 	print(self.emMovimento)
 	--print(self.nome.. ' '.. self.contador)
 	if (not(self.emMovimento)) then
@@ -69,8 +69,8 @@ if (self.contador < 500) then
 		if (self.coordenadaMatricialY<10) then
 			if (self.bitmap[self.coordenadaMatricialY +1][self.coordenadaMatricialX] == 0)then
 				--print(self.bitmap[self.coordenadaMatricialX][self.coordenadaMatricialY + 1] == 0)
-				print('x= '.. self.coordenadaMatricialX.. 'y= '.. self.coordenadaMatricialY)
-				--print('bitmap['.. self.coordenadaMatricialX.. ']['.. self.coordenadaMatricialY.. '] = '.. self.bitmap[self.coordenadaMatricialX][self.coordenadaMatricialY])
+				--print('x= '.. self.coordenadaMatricialX.. 'y= '.. self.coordenadaMatricialY)
+				print('bitmap['.. self.coordenadaMatricialX.. ']['.. self.coordenadaMatricialY.. '] = '.. self.bitmap[self.coordenadaMatricialX][self.coordenadaMatricialY])
 				table.insert(movimentoPossivel, 'down')
 			end
 		end
@@ -109,7 +109,11 @@ if (self.contador < 500) then
 		end
 		
 	end
+	
 	print(self.nome..' x= '.. self.coordenadaMatricialX.. ' y= '.. self.coordenadaMatricialY)
+	print('bitmap['.. self.coordenadaMatricialX.. ']['.. self.coordenadaMatricialY.. '] = '.. self.bitmap[self.coordenadaMatricialX][self.coordenadaMatricialY])
+	print("....")
+	print("  ")
 	self:acao(dt)
 end
 end 
