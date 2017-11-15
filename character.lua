@@ -60,32 +60,32 @@ local Character = {
 	
 	function Character:movimento(dt)
 	self.contador = self.contador +1
-if (self.contador < 650) then
+--if (self.contador < 650) then
 	print(self.emMovimento)
 	--print(self.nome.. ' '.. self.contador)
 	if (not(self.emMovimento)) then
 		movimentoPossivel = {}
 		
-		if (self.coordenadaMatricialY<10) then
-			if (self.bitmap[self.coordenadaMatricialY +1][self.coordenadaMatricialX] == 0)then
+		if (self.coordenadaMatricialX<10) then
+			if (self.bitmap[self.coordenadaMatricialX+1][self.coordenadaMatricialY ] == 0)then
 				--print(self.bitmap[self.coordenadaMatricialX][self.coordenadaMatricialY + 1] == 0)
 				--print('x= '.. self.coordenadaMatricialX.. 'y= '.. self.coordenadaMatricialY)
-				print('bitmap['.. self.coordenadaMatricialX.. ']['.. self.coordenadaMatricialY.. '] = '.. self.bitmap[self.coordenadaMatricialX][self.coordenadaMatricialY])
+				--print('bitmap['.. self.coordenadaMatricialX.. ']['.. self.coordenadaMatricialY.. '] = '.. self.bitmap[self.coordenadaMatricialX][self.coordenadaMatricialY])
 				table.insert(movimentoPossivel, 'down')
 			end
 		end
-		if (self.coordenadaMatricialY>1) then
-			if (self.bitmap[self.coordenadaMatricialY - 1][self.coordenadaMatricialX] == 0) then
+		if (self.coordenadaMatricialX>1) then
+			if (self.bitmap[self.coordenadaMatricialX- 1][self.coordenadaMatricialY] == 0) then
 				table.insert(movimentoPossivel, 'up')
 			end
 		end
-		if (self.coordenadaMatricialX<20) then
-			if (self.bitmap[self.coordenadaMatricialY][self.coordenadaMatricialX + 1] == 0) then
+		if (self.coordenadaMatricialY<20) then
+			if (self.bitmap[self.coordenadaMatricialX] [self.coordenadaMatricialY + 1]== 0) then
 				table.insert(movimentoPossivel, 'right')
 			end
 		end
-		if (self.coordenadaMatricialX>1) then
-			if (self.bitmap[self.coordenadaMatricialY][self.coordenadaMatricialX - 1] == 0) then
+		if (self.coordenadaMatricialY>1) then
+			if (self.bitmap[self.coordenadaMatricialX][self.coordenadaMatricialY - 1] == 0) then
 				table.insert(movimentoPossivel, 'left')
 			end
 		end 
@@ -115,7 +115,7 @@ if (self.contador < 650) then
 	print("....")
 	print("  ")
 	self:acao(dt)
-end
+--end
 end 
 
 	
@@ -149,7 +149,7 @@ end
 		else
 			self.emMovimento = false
 			self.contadorIncremento = 0
-			self.coordenadaMatricialY = self.coordenadaMatricialY + 1
+			self.coordenadaMatricialX = self.coordenadaMatricialX + 1
 			
 			--print(self.emMovimento)
 			--print(self.contadorIncremento)
@@ -187,7 +187,7 @@ end
 		else
 			self.emMovimento = false
 			self.contadorIncremento = 0
-			self.coordenadaMatricialY = self.coordenadaMatricialY - 1
+			self.coordenadaMatricialX = self.coordenadaMatricialX - 1
 		end
 		
 	end
@@ -220,7 +220,7 @@ end
 		else
 			self.emMovimento = false
 			self.contadorIncremento = 0
-			self.coordenadaMatricialX = self.coordenadaMatricialX + 1
+			self.coordenadaMatricialY = self.coordenadaMatricialY + 1
 		end
 		
 	end
@@ -253,7 +253,7 @@ end
 		else
 			self.emMovimento = false
 			self.contadorIncremento = 0
-			self.coordenadaMatricialX = self.coordenadaMatricialX - 1
+			self.coordenadaMatricialY = self.coordenadaMatricialY - 1
 		end
 		
 	end
