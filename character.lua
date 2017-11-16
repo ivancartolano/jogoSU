@@ -256,7 +256,9 @@ end
 	--end
 	
 	function Character:desenhar(imageFile)
+		love.graphics.setColor(0,50,255,150)
 		love.graphics.circle("fill", self.currentX+16, self.currentY+ 16, 20)
+		love.graphics.setColor(255,255,255,255)
 		love.graphics.draw(imageFile, self.activeFrame, self.currentX, self.currentY)
 	end
 	
