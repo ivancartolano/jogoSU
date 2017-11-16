@@ -68,9 +68,6 @@ local Character = {
 		
 		if (self.coordenadaMatricialX<10) then
 			if (self.bitmap[self.coordenadaMatricialX+1][self.coordenadaMatricialY ] == 0)then
-				--print(self.bitmap[self.coordenadaMatricialX][self.coordenadaMatricialY + 1] == 0)
-				--print('x= '.. self.coordenadaMatricialX.. 'y= '.. self.coordenadaMatricialY)
-				--print('bitmap['.. self.coordenadaMatricialX.. ']['.. self.coordenadaMatricialY.. '] = '.. self.bitmap[self.coordenadaMatricialX][self.coordenadaMatricialY])
 				table.insert(movimentoPossivel, 'down')
 			end
 		end
@@ -95,14 +92,10 @@ local Character = {
 		if movimentoEscolhido == 'down' then
 			self.acao = self.moveDown
 		elseif (movimentoEscolhido == 'up') then
-			--self.acao = self.moveUp
-			--acao = {move = self.moveUp}
 			self.acao = self.moveUp
 		elseif movimentoEscolhido == 'right' then
-			--acao = self.moveRight
 			self.acao = self.moveRight
 		elseif movimentoEscolhido == 'left' then
-			--acao = {move = self:moveLeft(dt)}
 			self.acao = self.moveLeft
 		else
 			self.acao = self.stand
@@ -130,7 +123,7 @@ end
 		end
 		
 		if (self.contadorIncremento<65) then
-			if(self.elapsedTime > 0.20) then
+			if(self.elapsedTime > 0.15) then
 				if (self.currentFrame < 3) then
 					self.currentFrame = self.currentFrame + 1
 				else
@@ -171,7 +164,7 @@ end
 		end
 		
 		if (self.contadorIncremento<65) then
-			if(self.elapsedTime > 0.20) then
+			if(self.elapsedTime > 0.15) then
 				if (self.currentFrame < 12) then
 					self.currentFrame = self.currentFrame + 1
 				else
@@ -204,7 +197,7 @@ end
 		end
 		
 		if (self.contadorIncremento<65) then
-			if(self.elapsedTime > 0.20) then
+			if(self.elapsedTime > 0.15) then
 				if (self.currentFrame < 9) then
 					self.currentFrame = self.currentFrame + 1
 				else
@@ -237,7 +230,7 @@ end
 		end
 		
 		if (self.contadorIncremento<65) then
-			if(self.elapsedTime > 0.20) then
+			if(self.elapsedTime > 0.15) then
 				if (self.currentFrame < 6) then
 					self.currentFrame = self.currentFrame + 1
 				else
