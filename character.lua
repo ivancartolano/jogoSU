@@ -256,6 +256,7 @@ end
 	--end
 	
 	function Character:desenhar(imageFile)
+		love.graphics.circle("fill", self.currentX+16, self.currentY+ 16, 20)
 		love.graphics.draw(imageFile, self.activeFrame, self.currentX, self.currentY)
 	end
 	
