@@ -14,17 +14,42 @@ local Character = {
 	contador= 0,
 	nome,
 
+	--bitmap = {
+	--	{0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+	--	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,0,0,1},
+	--	{3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,0,1},
+	--	{4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,0,1},
+	--	{5,0,0,1,1,1,1,1,1,1,0,0,1,1,1,0,1,1,1,1},
+	--	{6,1,1,1,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0},
+	--	{7,0,0,1,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0},
+	--	{8,0,0,1,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0},
+	--	{9,0,0,1,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0},
+	--	{0,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0},
+	--	}
 	bitmap = {
-		{0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,0,0,1},
-		{3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,0,1},
-		{4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,0,1},
-		{5,0,0,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1},
-		{6,1,1,1,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0},
-		{7,0,0,1,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0},
-		{8,0,0,1,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0},
-		{9,0,0,1,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0},
-		{0,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0},
+		{2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,1},
+		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+		{1,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,1,0,0,1},
+		{1,0,0,0,0,0,1,0,0,1,0,0,0,1,0,0,0,0,0,1},
+		{1,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,1},
+		{1,0,0,0,0,0,1,1,1,1,0,0,0,0,0,1,0,0,0,1},
+		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+		{1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1},
+		{2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		}
+		
+	costmap = {
+		{28,27,26,25,24,23,22,21,20,19,18,17,16,15,14,13,12,11,10, 9},
+		{27,26,25,24,23,22,21,20,19,18,17,16,15,14,13,12,11,10, 9, 8},
+		{26,25,24,23,22,21,20,19,18,17,16,15,14,13,12,11,10, 9, 8, 7},
+		{25,24,23,22,21,20,19,18,17,16,15,14,13,12,11,10, 9, 8, 7, 6},
+		{24,23,22,21,20,19,18,17,16,15,14,13,12,11,10, 9, 8, 7, 6, 5},
+		{23,22,21,20,19,18,17,16,15,14,13,12,11,10, 9, 8, 7, 6, 5, 4},
+		{22,21,20,19,18,17,16,15,14,13,12,11,10, 9, 8, 7, 6, 5, 4, 3},
+		{21,20,19,18,17,16,15,14,13,12,11,10, 9, 8, 7, 6, 5, 4, 3, 2},
+		{20,19,18,17,16,15,14,13,12,11,10, 9, 8, 7, 6, 5, 4, 3, 2, 1},
+		{19,18,17,16,15,14,13,12,11,10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0},
 		}
 		
 		}
@@ -33,8 +58,6 @@ local Character = {
 		emMovimento = false
 	end	
 		
-	
-	--acao = {move = stand}
 		
 	function Character:new(o)
 		o =  {}
@@ -111,7 +134,106 @@ local Character = {
 --end
 end 
 
+	function Character:movimentoObjetivo(dt)
+	self.contador = self.contador +1
+--if (self.contador < 650) then
+	print(self.emMovimento)
+	--print(self.nome.. ' '.. self.contador)
+	if (not(self.emMovimento)) then
+		movimentoPossivel = {}
+		
+		local goalX= 10
+		local goalY= 20
+		
+		--local left = false
+		--local right = false
+		--local up = false
+		--local down = false
+		
+		
+		--local downIndex = 0
+		--local upIndex = 0
+		--local leftIndex = 0
+		--local rightIndex = 0
+		
+		local minimo = 999
+		
+		if (self.coordenadaMatricialX<10) then
+			if (self.bitmap[self.coordenadaMatricialX+1][self.coordenadaMatricialY ] == 0)then
+				table.insert(movimentoPossivel, 'down')
+				--down = true
+				--downIndex = downIndex +1
+			end
+		end
+		if (self.coordenadaMatricialX>1) then
+			if (self.bitmap[self.coordenadaMatricialX- 1][self.coordenadaMatricialY] == 0) then
+				table.insert(movimentoPossivel, 'up')
+				--up = true
+				--upIndex = upIndex + 1
+				--downIndex = downIndex +1
+			end
+		end
+		if (self.coordenadaMatricialY<20) then
+			if (self.bitmap[self.coordenadaMatricialX] [self.coordenadaMatricialY + 1]== 0) then
+				table.insert(movimentoPossivel, 'right')
+				--right = true
+				--rightIndex = rightIndex +1
+				--upIndex = upIndex + 1
+				--downIndex = downIndex +1
+			end
+		end
+		if (self.coordenadaMatricialY>1) then
+			if (self.bitmap[self.coordenadaMatricialX][self.coordenadaMatricialY - 1] == 0) then
+				table.insert(movimentoPossivel, 'left')
+				--left = true 
+				--leftIndex = leftIndex + 1
+				--rightIndex = rightIndex +1
+				--upIndex = upIndex + 1
+				--downIndex = downIndex +1
+			end
+		end 
+		
+		--if (up and down) then
+		--	if (self.coordenadaMatricialX < goalX) then
+		--		table.remove(movimentoPossivel, upIndex)				
+		--	elseif (self.coordenadaMatricialX > goalX) then
+		--		table.remove(movimentoPossivel, downIndex)
+		--	end
+		--end
+		
+		--if (right and left) then
+		--	if (self.coordenadaMatricialY < goalY) then
+		--		table.remove(movimentoPossivel, leftIndex)				
+		--	elseif (self.coordenadaMatricialY > goalY) then
+		--		table.remove(movimentoPossivel, rightIndex)
+		--	end
+		--end
+		
+		
+		movimentoEscolhido = movimentoPossivel[math.random(#movimentoPossivel)]
+		
+		
+		if movimentoEscolhido == 'down' then
+			self.acao = self.moveDown
+		elseif (movimentoEscolhido == 'up') then
+			self.acao = self.moveUp
+		elseif movimentoEscolhido == 'right' then
+			self.acao = self.moveRight
+		elseif movimentoEscolhido == 'left' then
+			self.acao = self.moveLeft
+		else
+			self.acao = self.stand
+		end
+		
+	end
 	
+	print(self.nome..' x= '.. self.coordenadaMatricialX.. ' y= '.. self.coordenadaMatricialY)
+	print('bitmap['.. self.coordenadaMatricialX.. ']['.. self.coordenadaMatricialY.. '] = '.. self.bitmap[self.coordenadaMatricialX][self.coordenadaMatricialY])
+	print("....")
+	print("  ")
+	self:acao(dt)
+--end
+end 
 
 	function Character:moveDown(dt)
 		print('moveDown'.. self.contadorIncremento)

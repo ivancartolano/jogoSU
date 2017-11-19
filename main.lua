@@ -29,8 +29,8 @@ function love.load()
 end
 
 function love.update(dt)
-	steven:movimento(dt)
-	connie:movimento(dt)
+	steven:movimentoObjetivo(dt)
+	connie:movimentoObjetivo(dt)
 	--personagen:moveRight(dt)
 end
 
