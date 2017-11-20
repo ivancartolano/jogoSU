@@ -161,80 +161,36 @@ end
 
 	function Character:movimentoObjetivo(dt)
 	self.contador = self.contador +1
---if (self.contador < 650) then
-	print(self.emMovimento)
-	--print(self.nome.. ' '.. self.contador)
+
 	if (not(self.emMovimento)) then
 		movimentoPossivel = {}
 		
 		local goalX= 10
 		local goalY= 20
 		
-		--local left = false
-		--local right = false
-		--local up = false
-		--local down = false
-		
-		
-		--local downIndex = 0
-		--local upIndex = 0
-		--local leftIndex = 0
-		--local rightIndex = 0
-		
 		local minimo = self:least(self.coordenadaMatricialX, self.coordenadaMatricialY) 
 		
 		if (self.coordenadaMatricialX<10) then
 			if ((self.bitmap[self.coordenadaMatricialX+1][self.coordenadaMatricialY ] == 0) and (self.costmap[self.coordenadaMatricialX+1][self.coordenadaMatricialY ] == minimo) )then
 				table.insert(movimentoPossivel, 'down')
-				--down = true
-				--downIndex = downIndex +1
 			end
 		end
 		if (self.coordenadaMatricialX>1) then
 			if ((self.bitmap[self.coordenadaMatricialX- 1][self.coordenadaMatricialY] == 0) and (self.costmap[self.coordenadaMatricialX- 1][self.coordenadaMatricialY] == minimo) ) then
 				table.insert(movimentoPossivel, 'up')
-				--up = true
-				--upIndex = upIndex + 1
-				--downIndex = downIndex +1
 			end
 		end
 		if (self.coordenadaMatricialY<20) then
 			if ((self.bitmap[self.coordenadaMatricialX] [self.coordenadaMatricialY + 1]== 0) and (self.costmap[self.coordenadaMatricialX] [self.coordenadaMatricialY + 1]== minimo)) then
 				table.insert(movimentoPossivel, 'right')
-				--right = true
-				--rightIndex = rightIndex +1
-				--upIndex = upIndex + 1
-				--downIndex = downIndex +1
 			end
 		end
 		if (self.coordenadaMatricialY>1) then
 			if ((self.bitmap[self.coordenadaMatricialX][self.coordenadaMatricialY - 1] == 0) and (self.costmap[self.coordenadaMatricialX][self.coordenadaMatricialY - 1] == minimo) ) then
 				table.insert(movimentoPossivel, 'left')
-				--left = true 
-				--leftIndex = leftIndex + 1
-				--rightIndex = rightIndex +1
-				--upIndex = upIndex + 1
-				--downIndex = downIndex +1
 			end
 		end 
-		
-		--if (up and down) then
-		--	if (self.coordenadaMatricialX < goalX) then
-		--		table.remove(movimentoPossivel, upIndex)				
-		--	elseif (self.coordenadaMatricialX > goalX) then
-		--		table.remove(movimentoPossivel, downIndex)
-		--	end
-		--end
-		
-		--if (right and left) then
-		--	if (self.coordenadaMatricialY < goalY) then
-		--		table.remove(movimentoPossivel, leftIndex)				
-		--	elseif (self.coordenadaMatricialY > goalY) then
-		--		table.remove(movimentoPossivel, rightIndex)
-		--	end
-		--end
-		
-		
+	
 		movimentoEscolhido = movimentoPossivel[math.random(#movimentoPossivel)]
 		
 		
@@ -252,10 +208,6 @@ end
 		
 	end
 	
-	print(self.nome..' x= '.. self.coordenadaMatricialX.. ' y= '.. self.coordenadaMatricialY)
-	print('bitmap['.. self.coordenadaMatricialX.. ']['.. self.coordenadaMatricialY.. '] = '.. self.bitmap[self.coordenadaMatricialX][self.coordenadaMatricialY])
-	print("....")
-	print("  ")
 	self:acao(dt)
 --end
 end 
@@ -403,7 +355,7 @@ end
 	--end
 	
 	function Character:desenhar(imageFile)
-		love.graphics.setColor(0,50,255,150)
+		love.graphics.setColor(100,50,255,150)
 		love.graphics.circle("fill", self.currentX+16, self.currentY+ 16, 20)
 		love.graphics.setColor(255,255,255,255)
 		love.graphics.draw(imageFile, self.activeFrame, self.currentX, self.currentY)

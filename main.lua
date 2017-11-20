@@ -1,11 +1,12 @@
 local mapa = require "mapa"
-local Character = require "Character"
-local Sprite = require "Sprite"
-local steven = Character:new()
-local connie = Character:new()
+--local Character = require "Character"
+--local Sprite = require "Sprite"
+--local steven = Character:new()
+--local connie = Character:new()
 --local personagen = Character:new()
-local stevenSprites
-local connieSprites
+--local stevenSprites
+--local connieSprites
+local door = require "door"
 local imageFile
 local grassImage
 local dirtImage
@@ -20,25 +21,28 @@ function love.load()
 	waterImage = love.graphics.newImage("water64.png")
 	imageFile = love.graphics.newImage("steven-universe-sprites.png")
 	
-	stevenSprites = Sprite:preencherFrames(0,0,imageFile)
-	connieSprites = Sprite:preencherFrames(0,4,imageFile)
+	--stevenSprites = Sprite:preencherFrames(0,0,imageFile)
+	--connieSprites = Sprite:preencherFrames(0,4,imageFile)
 	
-	steven:carregar(16,16,1,1,1, stevenSprites,imageFile, 'steven')
-	connie:carregar(32,96,2,1,7,connieSprites,imageFile, 'connie')
+	--steven:carregar(16,16,1,1,1, stevenSprites,imageFile, 'steven')
+	--connie:carregar(32,96,2,1,7,connieSprites,imageFile, 'connie')
 	--personagen:carregar(150,0,7, stevenSprites,imageFile)
+	door:carregar(imageFile)
 end
 
 function love.update(dt)
-	steven:movimentoObjetivo(dt)
-	connie:movimentoObjetivo(dt)
+	--steven:movimentoObjetivo(dt)
+	--connie:movimentoObjetivo(dt)
+	door:atualizar(dt)
 	--personagen:moveRight(dt)
 end
 
 
 function love.draw()
 	mapa:draw(grassImage, dirtImage, waterImage)
-	steven:desenhar(imageFile)
-	connie:desenhar(imageFile)
+	door:desenhar(imageFile)
+	--steven:desenhar(imageFile)
+	--connie:desenhar(imageFile)
 	--personagen:desenhar(imageFile)
 end
 
