@@ -37,7 +37,7 @@ local Character = {
 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
 		{1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1},
 		{2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		}
+		},
 		
 	costmap = {
 		{28,27,26,25,24,23,22,21,20,19,18,17,16,15,14,13,12,11,10, 9},
@@ -134,6 +134,31 @@ local Character = {
 --end
 end 
 
+	function Character:least(x,y)
+		local minimo = self.costmap[x][y]
+		if (x < 10) then
+			if (minimo > self.costmap[x + 1][y]) then
+				minimo = self.costmap[x + 1][y]
+			end
+		end
+		if (x > 1) then
+			if (minimo > self.costmap[x - 1][y]) then
+				minimo = self.costmap[x - 1][y]
+			end
+		end
+		if (y < 20) then
+			if (minimo > self.costmap[x][y + 1]) then
+				minimo = self.costmap[x][y + 1]
+			end
+		end
+		if ( y > 1) then 
+			if (minimo > self.costmap[x][y - 1]) then
+				minimo = self.costmap[x][y - 1]
+			end
+		end
+		return minimo
+	end
+
 	function Character:movimentoObjetivo(dt)
 	self.contador = self.contador +1
 --if (self.contador < 650) then
@@ -156,17 +181,17 @@ end
 		--local leftIndex = 0
 		--local rightIndex = 0
 		
-		local minimo = 999
+		local minimo = self:least(self.coordenadaMatricialX, self.coordenadaMatricialY) 
 		
 		if (self.coordenadaMatricialX<10) then
-			if (self.bitmap[self.coordenadaMatricialX+1][self.coordenadaMatricialY ] == 0)then
+			if ((self.bitmap[self.coordenadaMatricialX+1][self.coordenadaMatricialY ] == 0) and (self.costmap[self.coordenadaMatricialX+1][self.coordenadaMatricialY ] == minimo) )then
 				table.insert(movimentoPossivel, 'down')
 				--down = true
 				--downIndex = downIndex +1
 			end
 		end
 		if (self.coordenadaMatricialX>1) then
-			if (self.bitmap[self.coordenadaMatricialX- 1][self.coordenadaMatricialY] == 0) then
+			if ((self.bitmap[self.coordenadaMatricialX- 1][self.coordenadaMatricialY] == 0) and (self.costmap[self.coordenadaMatricialX- 1][self.coordenadaMatricialY] == minimo) ) then
 				table.insert(movimentoPossivel, 'up')
 				--up = true
 				--upIndex = upIndex + 1
@@ -174,7 +199,7 @@ end
 			end
 		end
 		if (self.coordenadaMatricialY<20) then
-			if (self.bitmap[self.coordenadaMatricialX] [self.coordenadaMatricialY + 1]== 0) then
+			if ((self.bitmap[self.coordenadaMatricialX] [self.coordenadaMatricialY + 1]== 0) and (self.costmap[self.coordenadaMatricialX] [self.coordenadaMatricialY + 1]== minimo)) then
 				table.insert(movimentoPossivel, 'right')
 				--right = true
 				--rightIndex = rightIndex +1
@@ -183,7 +208,7 @@ end
 			end
 		end
 		if (self.coordenadaMatricialY>1) then
-			if (self.bitmap[self.coordenadaMatricialX][self.coordenadaMatricialY - 1] == 0) then
+			if ((self.bitmap[self.coordenadaMatricialX][self.coordenadaMatricialY - 1] == 0) and (self.costmap[self.coordenadaMatricialX][self.coordenadaMatricialY - 1] == minimo) ) then
 				table.insert(movimentoPossivel, 'left')
 				--left = true 
 				--leftIndex = leftIndex + 1
