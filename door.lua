@@ -43,6 +43,9 @@ function door:atualizar(dt)
 	--connie:movimentoObjetivo(dt)
 	for i, v in ipairs(self.personagem) do
 		v:movimentoObjetivo(dt)
+		if ((v.coordenadaMatricialX == 10) and (v.coordenadaMatricialY == 20)) then
+			table.remove(self.personagem, i)
+		end
 	end
 end
 
