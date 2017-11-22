@@ -1,13 +1,7 @@
 local mapa = require "mapa"
---local Character = require "Character"
---local Sprite = require "Sprite"
---local steven = Character:new()
---local connie = Character:new()
---local personagen = Character:new()
---local stevenSprites
---local connieSprites
 local door = require "door"
 local redDoor = door:new()
+local blueDoor = door:new()
 local imageFile
 local grassImage
 local dirtImage
@@ -47,35 +41,22 @@ function love.load()
 	dirtImage = love.graphics.newImage("dirt64.png")
 	waterImage = love.graphics.newImage("water64.png")
 	imageFile = love.graphics.newImage("steven-universe-sprites.png")
+
 	
-	--stevenSprites = Sprite:preencherFrames(0,0,imageFile)
-	--connieSprites = Sprite:preencherFrames(0,4,imageFile)
-	
-	--steven:carregar(16,16,1,1,1, stevenSprites,imageFile, 'steven')
-	--connie:carregar(32,96,2,1,7,connieSprites,imageFile, 'connie')
-	--personagen:carregar(150,0,7, stevenSprites,imageFile)
-	
-	--door:carregar(imageFile, bluemap, 16,16,1,1, 0, 0, 250 )
+	blueDoor:carregar(imageFile, bluemap, 16,16,1,1, 0, 0, 250 )
 	redDoor:carregar(imageFile, redmap, 1232,592,10,20, 250, 0, 0 )
 end
 
-function love.update(dt)
-	--steven:movimentoObjetivo(dt)
-	--connie:movimentoObjetivo(dt)
-	
-	--door:atualizar(dt)
+function love.update(dt)	
+	blueDoor:atualizar(dt)
 	redDoor:atualizar(dt)
 end
 
 
 function love.draw()
 	mapa:draw(grassImage, dirtImage, waterImage)
-	--door:desenhar(imageFile)
+	blueDoor:desenhar(imageFile)
 	redDoor:desenhar(imageFile)
-	
-	--steven:desenhar(imageFile)
-	--connie:desenhar(imageFile)
-	--personagen:desenhar(imageFile)
 end
 
 
