@@ -39,19 +39,19 @@ local Character = {
 		{2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 		},
 		
-	costmap = {
-		{28,27,26,25,24,23,22,21,20,19,18,17,16,15,14,13,12,11,10, 9},
-		{27,26,25,24,23,22,21,20,19,18,17,16,15,14,13,12,11,10, 9, 8},
-		{26,25,24,23,22,21,20,19,18,17,16,15,14,13,12,11,10, 9, 8, 7},
-		{25,24,23,22,21,20,19,18,17,16,15,14,13,12,11,10, 9, 8, 7, 6},
-		{24,23,22,21,20,19,18,17,16,15,14,13,12,11,10, 9, 8, 7, 6, 5},
-		{23,22,21,20,19,18,17,16,15,14,13,12,11,10, 9, 8, 7, 6, 5, 4},
-		{22,21,20,19,18,17,16,15,14,13,12,11,10, 9, 8, 7, 6, 5, 4, 3},
-		{21,20,19,18,17,16,15,14,13,12,11,10, 9, 8, 7, 6, 5, 4, 3, 2},
-		{20,19,18,17,16,15,14,13,12,11,10, 9, 8, 7, 6, 5, 4, 3, 2, 1},
-		{19,18,17,16,15,14,13,12,11,10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0},
-		}
-		
+	--costmap = {
+	--	{28,27,26,25,24,23,22,21,20,19,18,17,16,15,14,13,12,11,10, 9},
+	--	{27,26,25,24,23,22,21,20,19,18,17,16,15,14,13,12,11,10, 9, 8},
+	--	{26,25,24,23,22,21,20,19,18,17,16,15,14,13,12,11,10, 9, 8, 7},
+	--	{25,24,23,22,21,20,19,18,17,16,15,14,13,12,11,10, 9, 8, 7, 6},
+	--	{24,23,22,21,20,19,18,17,16,15,14,13,12,11,10, 9, 8, 7, 6, 5},
+	--	{23,22,21,20,19,18,17,16,15,14,13,12,11,10, 9, 8, 7, 6, 5, 4},
+	--	{22,21,20,19,18,17,16,15,14,13,12,11,10, 9, 8, 7, 6, 5, 4, 3},
+	--	{21,20,19,18,17,16,15,14,13,12,11,10, 9, 8, 7, 6, 5, 4, 3, 2},
+	--	{20,19,18,17,16,15,14,13,12,11,10, 9, 8, 7, 6, 5, 4, 3, 2, 1},
+	--	{19,18,17,16,15,14,13,12,11,10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0},
+	--	}
+	costmap	
 		}
 		
 	function Character:stand(dt)
@@ -66,7 +66,7 @@ local Character = {
 		return o
 	end
 	
-	function Character:carregar(mapaX,mapaY, coorMatricialX, coorMatricialY, initialFrame, sprites,imageFile, onome)
+	function Character:carregar(mapaX,mapaY, coorMatricialX, coorMatricialY, initialFrame, sprites,imageFile, onome, individualMap)
 		
 		self.frames = sprites
 		self.currentFrame = initialFrame
@@ -76,7 +76,7 @@ local Character = {
 		self.coordenadaMatricialX= coorMatricialX
 		self.coordenadaMatricialY = coorMatricialY
 		self.nome = onome
-		
+		self.costmap = individualMap
 		--self.elapsedTime = 0
 		
 	end
@@ -221,7 +221,7 @@ end
 			self.currentFrame = 1
 		end
 		
-		if (self.contadorIncremento<65) then
+		if (self.contadorIncremento<64) then
 			if(self.elapsedTime > 0.15) then
 				if (self.currentFrame < 3) then
 					self.currentFrame = self.currentFrame + 1
@@ -262,7 +262,7 @@ end
 			self.currentFrame = 10
 		end
 		
-		if (self.contadorIncremento<65) then
+		if (self.contadorIncremento<64) then
 			if(self.elapsedTime > 0.15) then
 				if (self.currentFrame < 12) then
 					self.currentFrame = self.currentFrame + 1
@@ -295,7 +295,7 @@ end
 			self.currentFrame = 7
 		end
 		
-		if (self.contadorIncremento<65) then
+		if (self.contadorIncremento<64) then
 			if(self.elapsedTime > 0.15) then
 				if (self.currentFrame < 9) then
 					self.currentFrame = self.currentFrame + 1
@@ -328,7 +328,7 @@ end
 			self.currentFrame = 4
 		end
 		
-		if (self.contadorIncremento<65) then
+		if (self.contadorIncremento<64) then
 			if(self.elapsedTime > 0.15) then
 				if (self.currentFrame < 6) then
 					self.currentFrame = self.currentFrame + 1
