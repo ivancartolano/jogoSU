@@ -61,7 +61,7 @@ local Character = {
 	self.contador = self.contador +1
 --if (self.contador < 650) then
 	print(self.emMovimento)
-	--print(self.nome.. ' '.. self.contador)
+	print(self.nome.. ' '.. self.contador)
 	if (not(self.emMovimento)) then
 		movimentoPossivel = {}
 		
@@ -137,6 +137,7 @@ end
 
 	function Character:movimentoObjetivo(dt)
 	self.contador = self.contador +1
+	--print(self.nome.. ' '.. self.contador)
 
 	if (not(self.emMovimento)) then
 		movimentoPossivel = {}
@@ -183,6 +184,11 @@ end
 		end
 		
 	end
+	
+	--print(self.nome..' x= '.. self.coordenadaMatricialX.. ' y= '.. self.coordenadaMatricialY)
+	--print('bitmap['.. self.coordenadaMatricialX.. ']['.. self.coordenadaMatricialY.. '] = '.. self.bitmap[self.coordenadaMatricialX][self.coordenadaMatricialY])
+	--print("....")
+	--print("  ")
 	
 	self:acao(dt)
 --end
