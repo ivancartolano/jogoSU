@@ -19,10 +19,19 @@ local coorMatricialY
 local red
 local green
 local blue
+local goalX
+local goalY
 
 local door = {elapsedTime = 0, personagem = {}}
 
-function door:carregar(imageFile, mapa, mapaX,mapaY, coorMatricialX, coorMatricialY, r, g, b)
+function door:new(o)
+	o =  {}
+	setmetatable(o,self)
+	self.__index = self
+	return o
+end
+
+function door:carregar(imageFile, mapa, mapaX,mapaY, coorMatricialX, coorMatricialY, r, g, b, gX, gY)
 	stevenSprites = Sprite:preencherFrames(0,0,imageFile)
 	garnetSprites = Sprite:preencherFrames(3,0,imageFile)
 	amethystSprites = Sprite:preencherFrames(6,0,imageFile)
@@ -39,6 +48,8 @@ function door:carregar(imageFile, mapa, mapaX,mapaY, coorMatricialX, coorMatrici
 	red = r
 	green = g
 	blue = b
+	goalX = gX
+	goalY = gY
 	steven:carregar(currentX,currentY,coordenadaMatricialX,coordenadaMatricialY,1, stevenSprites,imageFile, 'steven', individualMap)
 	--steven:carregar(16,16,1,1,1, stevenSprites,imageFile, 'steven', individualMap)
 	--connie:carregar(16,80,2,1,7,connieSprites,imageFile, 'connie')
@@ -84,7 +95,9 @@ function door:atualizar(dt)
 	--connie:movimentoObjetivo(dt)
 	for i, v in ipairs(self.personagem) do
 		v:movimentoObjetivo(dt)
-		if ((v.coordenadaMatricialX == 10) and (v.coordenadaMatricialY == 20)) then
+		--if ((v.coordenadaMatricialX == goalX) and (v.coordenadaMatricialY == goalY)) then
+		--if ((v.coordenadaMatricialX == 10) and (v.coordenadaMatricialY == 20)) then
+		if (v.costmap[v.coordenadaMatricialX][v.coordenadaMatricialY]== 0) then
 			table.remove(self.personagem, i)
 		end
 	end
