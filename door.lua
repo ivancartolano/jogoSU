@@ -12,11 +12,17 @@ local connieSprites
 local gregSprites
 local peridotSprites
 local individualMap
-
+local currentX
+local currentY
+local coorMatricialX
+local coorMatricialY
+local red
+local green
+local blue
 
 local door = {elapsedTime = 0, personagem = {}}
 
-function door:carregar(imageFile, mapa)
+function door:carregar(imageFile, mapa, mapaX,mapaY, coorMatricialX, coorMatricialY, r, g, b)
 	stevenSprites = Sprite:preencherFrames(0,0,imageFile)
 	garnetSprites = Sprite:preencherFrames(3,0,imageFile)
 	amethystSprites = Sprite:preencherFrames(6,0,imageFile)
@@ -24,9 +30,17 @@ function door:carregar(imageFile, mapa)
 	connieSprites = Sprite:preencherFrames(0,4,imageFile)
 	gregSprites = Sprite:preencherFrames(3,4,imageFile)
 	peridotSprites = Sprite:preencherFrames(6,4,imageFile)
-	individualMap = mapa
 	
-	steven:carregar(16,16,1,1,1, stevenSprites,imageFile, 'steven', individualMap)
+	individualMap = mapa
+	currentX = mapaX
+	currentY = mapaY
+	coordenadaMatricialX= coorMatricialX
+	coordenadaMatricialY = coorMatricialY
+	red = r
+	green = g
+	blue = b
+	steven:carregar(currentX,currentY,coordenadaMatricialX,coordenadaMatricialY,1, stevenSprites,imageFile, 'steven', individualMap)
+	--steven:carregar(16,16,1,1,1, stevenSprites,imageFile, 'steven', individualMap)
 	--connie:carregar(16,80,2,1,7,connieSprites,imageFile, 'connie')
 	table.insert(self.personagem, steven)
 
@@ -35,25 +49,25 @@ end
 local function escolher(pers) 
 	local escolhido = math.random(7)
 	if (escolhido == 1) then
-		pers:carregar(16,16,1,1,1, stevenSprites,imageFile, 'steven', individualMap)
+		pers:carregar(currentX,currentY,coordenadaMatricialX,coordenadaMatricialY,1, stevenSprites,imageFile, 'steven', individualMap)
 	end
 	if (escolhido == 2) then
-		pers:carregar(16,16,1,1,1, garnetSprites,imageFile, 'garnet', individualMap)
+		pers:carregar(currentX,currentY,coordenadaMatricialX,coordenadaMatricialY,1, garnetSprites,imageFile, 'garnet', individualMap)
 	end
 	if (escolhido == 3) then
-		pers:carregar(16,16,1,1,1, amethystSprites,imageFile, 'amet', individualMap)
+		pers:carregar(currentX,currentY,coordenadaMatricialX,coordenadaMatricialY,1, amethystSprites,imageFile, 'amet', individualMap)
 	end
 	if (escolhido == 4) then
-		pers:carregar(16,16,1,1,1, pearlSprites,imageFile, 'pearl', individualMap)
+		pers:carregar(currentX,currentY,coordenadaMatricialX,coordenadaMatricialY,1, pearlSprites,imageFile, 'pearl', individualMap)
 	end
 	if (escolhido == 5) then
-		pers:carregar(16,16,1,1,1, connieSprites,imageFile, 'connie', individualMap)
+		pers:carregar(currentX,currentY,coordenadaMatricialX,coordenadaMatricialY,1, connieSprites,imageFile, 'connie', individualMap)
 	end
 	if (escolhido == 6) then
-		pers:carregar(16,16,1,1,1, gregSprites,imageFile, 'greg', individualMap)
+		pers:carregar(currentX,currentY,coordenadaMatricialX,coordenadaMatricialY,1, gregSprites,imageFile, 'greg', individualMap)
 	end
 	if (escolhido == 7) then
-		pers:carregar(16,16,1,1,1, peridotSprites,imageFile, 'peridot', individualMap)
+		pers:carregar(currentX,currentY,coordenadaMatricialX,coordenadaMatricialY,1, peridotSprites,imageFile, 'peridot', individualMap)
 	end
 end
 
@@ -80,7 +94,7 @@ function door:desenhar(imageFile)
 	--steven:desenhar(imageFile)
 	--connie:desenhar(imageFile)
 	for i, v in ipairs(self.personagem) do
-		v:desenhar(imageFile)
+		v:desenhar(imageFile, red, green, blue)
 	end
 end
 

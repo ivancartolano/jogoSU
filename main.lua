@@ -53,7 +53,7 @@ function love.load()
 	--steven:carregar(16,16,1,1,1, stevenSprites,imageFile, 'steven')
 	--connie:carregar(32,96,2,1,7,connieSprites,imageFile, 'connie')
 	--personagen:carregar(150,0,7, stevenSprites,imageFile)
-	door:carregar(imageFile, bluemap)
+	door:carregar(imageFile, bluemap, 16,16,1,1, 0, 0, 250 )
 end
 
 function love.update(dt)
