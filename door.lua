@@ -30,7 +30,7 @@ local door = {elapsedTime = 0,
 			green,
 			blue,
 			steven = Character:new(),
-			nome}
+			}
 
 function door:new(o)
 	o =  {}
@@ -39,7 +39,7 @@ function door:new(o)
 	return o
 end
 
-function door:carregar(imageFile, mapa, mapaX,mapaY, coorMatricialX, coorMatricialY, r, g, b, onome, vec)
+function door:carregar(imageFile, mapa, mapaX,mapaY, coorMatricialX, coorMatricialY, r, g, b, vec)
 	stevenSprites = Sprite:preencherFrames(0,0,imageFile)
 	garnetSprites = Sprite:preencherFrames(3,0,imageFile)
 	amethystSprites = Sprite:preencherFrames(6,0,imageFile)
@@ -56,15 +56,8 @@ function door:carregar(imageFile, mapa, mapaX,mapaY, coorMatricialX, coorMatrici
 	self.red = r
 	self.green = g
 	self.blue = b
-	--self.steven:carregar(self.currentX,self.currentY,self.coordenadaMatricialX,self.coordenadaMatricialY,1, stevenSprites,imageFile, 'steven', self.individualMap)
 
-	self.nome = onome
 	self.personagem = vec
-	
-	--table.insert(self.personagem, self.steven)
-	
-	--self.nome = onome
-	--self.personagem = vec
 
 end
 
@@ -93,19 +86,9 @@ function door:escolher(pers)
 	end
 end
 
-function door:atualizar(dt)
---	print("...............................................................................................")
---	print(self.nome)
---	print("...............................................................................................")
-	
---	for i, v in ipairs(self.personagem) do
---		print(i)
---		print(v.nome)
---		print("  ")
---	end
-	
+function door:atualizar(dt)	
 	self.elapsedTime = self.elapsedTime + 1
-	if (self.elapsedTime == 150) then 
+	if (self.elapsedTime == 90) then 
 		self.elapsedTime = 0
 		local auxiliar = Character:new()
 		self:escolher(auxiliar)
@@ -121,12 +104,10 @@ function door:atualizar(dt)
 	end
 end
 
-function door:desenhar(imageFile, red, green, blue)
+function door:desenhar(imageFile)
 	for i, v in ipairs(self.personagem) do
 		v:desenhar(imageFile, self.red, self.green, self.blue)
---		v:desenhar(imageFile, red, green, blue)
 	end
-	--print(red)
 end
 
 return door

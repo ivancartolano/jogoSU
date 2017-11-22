@@ -57,59 +57,7 @@ local Character = {
 		
 	end
 	
-	function Character:movimento(dt)
-	self.contador = self.contador +1
---if (self.contador < 650) then
-	print(self.emMovimento)
-	print(self.nome.. ' '.. self.contador)
-	if (not(self.emMovimento)) then
-		movimentoPossivel = {}
-		
-		if (self.coordenadaMatricialX<10) then
-			if (self.bitmap[self.coordenadaMatricialX+1][self.coordenadaMatricialY ] == 0)then
-				table.insert(movimentoPossivel, 'down')
-			end
-		end
-		if (self.coordenadaMatricialX>1) then
-			if (self.bitmap[self.coordenadaMatricialX- 1][self.coordenadaMatricialY] == 0) then
-				table.insert(movimentoPossivel, 'up')
-			end
-		end
-		if (self.coordenadaMatricialY<20) then
-			if (self.bitmap[self.coordenadaMatricialX] [self.coordenadaMatricialY + 1]== 0) then
-				table.insert(movimentoPossivel, 'right')
-			end
-		end
-		if (self.coordenadaMatricialY>1) then
-			if (self.bitmap[self.coordenadaMatricialX][self.coordenadaMatricialY - 1] == 0) then
-				table.insert(movimentoPossivel, 'left')
-			end
-		end 
-		
-		movimentoEscolhido = movimentoPossivel[math.random(#movimentoPossivel)]
-		
-		if movimentoEscolhido == 'down' then
-			self.acao = self.moveDown
-		elseif (movimentoEscolhido == 'up') then
-			self.acao = self.moveUp
-		elseif movimentoEscolhido == 'right' then
-			self.acao = self.moveRight
-		elseif movimentoEscolhido == 'left' then
-			self.acao = self.moveLeft
-		else
-			self.acao = self.stand
-		end
-		
-	end
 	
-	print(self.nome..' x= '.. self.coordenadaMatricialX.. ' y= '.. self.coordenadaMatricialY)
-	print('bitmap['.. self.coordenadaMatricialX.. ']['.. self.coordenadaMatricialY.. '] = '.. self.bitmap[self.coordenadaMatricialX][self.coordenadaMatricialY])
-	print("....")
-	print("  ")
-	self:acao(dt)
---end
-end 
-
 	function Character:least(x,y)
 		local minimo = self.costmap[x][y]
 		if (x < 10) then
@@ -137,7 +85,6 @@ end
 
 	function Character:movimentoObjetivo(dt)
 	self.contador = self.contador +1
-	--print(self.nome.. ' '.. self.contador)
 
 	if (not(self.emMovimento)) then
 		movimentoPossivel = {}
@@ -184,18 +131,12 @@ end
 		end
 		
 	end
-	
-	--print(self.nome..' x= '.. self.coordenadaMatricialX.. ' y= '.. self.coordenadaMatricialY)
-	--print('bitmap['.. self.coordenadaMatricialX.. ']['.. self.coordenadaMatricialY.. '] = '.. self.bitmap[self.coordenadaMatricialX][self.coordenadaMatricialY])
-	--print("....")
-	--print("  ")
-	
+
 	self:acao(dt)
---end
 end 
 
 	function Character:moveDown(dt)
-		print('moveDown'.. self.contadorIncremento)
+		--print('moveDown'.. self.contadorIncremento)
 		self.elapsedTime = self.elapsedTime +dt
 		self.emMovimento = true
 		
