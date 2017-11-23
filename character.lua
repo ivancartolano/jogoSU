@@ -28,8 +28,24 @@ local Character = {
 		{2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 		},
 		
+	
 	costmap	
 		}
+		
+		
+	local charmap = {
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		}
+		
 		
 	function Character:stand(dt)
 		emMovimento = false
@@ -83,14 +99,11 @@ local Character = {
 		return minimo
 	end
 
-	function Character:movimentoObjetivo(dt)
+function Character:movimentoObjetivo(dt)
 	self.contador = self.contador +1
 
 	if (not(self.emMovimento)) then
 		movimentoPossivel = {}
-		
-		local goalX= 10
-		local goalY= 20
 		
 		local minimo = self:least(self.coordenadaMatricialX, self.coordenadaMatricialY) 
 		
@@ -136,11 +149,11 @@ local Character = {
 end 
 
 	function Character:moveDown(dt)
-		--print('moveDown'.. self.contadorIncremento)
 		self.elapsedTime = self.elapsedTime +dt
 		self.emMovimento = true
 		
 		if (self.contadorIncremento == 0) then
+			--charmap[self.coordenadaMatricialX][self.coorMatricialY] = 1
 			self.currentFrame = 1
 		end
 		
@@ -158,17 +171,11 @@ end
 			self.currentY = self.currentY + 1
 			self.contadorIncremento = self.contadorIncremento + 1
 			
-			--print(self.currentY) 
-			--print(self.contadorIncremento)
 		
 		else
 			self.emMovimento = false
 			self.contadorIncremento = 0
 			self.coordenadaMatricialX = self.coordenadaMatricialX + 1
-			
-			--print(self.emMovimento)
-			--print(self.contadorIncremento)
-			--print(self.coordenadaMatricialY)
 			
 		end
 		
@@ -176,7 +183,6 @@ end
 	
 	
 	function Character:moveUp(dt)
-		--print('moveUp'.. self.contadorIncremento)
 		
 		self.elapsedTime = self.elapsedTime +dt
 		self.emMovimento = true
@@ -209,7 +215,6 @@ end
 	
 	
 	function Character:moveRight(dt)
-		--print('moveRight'.. self.contadorIncremento)
 	
 		self.elapsedTime = self.elapsedTime +dt
 		self.emMovimento = true
@@ -242,7 +247,6 @@ end
 	
 	
 	function Character:moveLeft(dt)
-		--print('moveLeft '.. self.contadorIncremento)
 	
 		self.elapsedTime = self.elapsedTime +dt
 		self.emMovimento = true
