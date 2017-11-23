@@ -109,22 +109,30 @@ function Character:movimentoObjetivo(dt)
 		
 		if (self.coordenadaMatricialX<10) then
 			if ((self.bitmap[self.coordenadaMatricialX+1][self.coordenadaMatricialY ] == 0) and (self.costmap[self.coordenadaMatricialX+1][self.coordenadaMatricialY ] == minimo) )then
-				table.insert(movimentoPossivel, 'down')
+				if(charmap[self.coordenadaMatricialX+1][self.coordenadaMatricialY ] == 0) then
+					table.insert(movimentoPossivel, 'down')
+				end
 			end
 		end
 		if (self.coordenadaMatricialX>1) then
 			if ((self.bitmap[self.coordenadaMatricialX- 1][self.coordenadaMatricialY] == 0) and (self.costmap[self.coordenadaMatricialX- 1][self.coordenadaMatricialY] == minimo) ) then
-				table.insert(movimentoPossivel, 'up')
+				if(charmap[self.coordenadaMatricialX- 1][self.coordenadaMatricialY] == 0) then
+					table.insert(movimentoPossivel, 'up')
+				end
 			end
 		end
 		if (self.coordenadaMatricialY<20) then
 			if ((self.bitmap[self.coordenadaMatricialX] [self.coordenadaMatricialY + 1]== 0) and (self.costmap[self.coordenadaMatricialX] [self.coordenadaMatricialY + 1]== minimo)) then
-				table.insert(movimentoPossivel, 'right')
+				if (charmap[self.coordenadaMatricialX] [self.coordenadaMatricialY + 1]== 0) then
+					table.insert(movimentoPossivel, 'right')
+				end
 			end
 		end
 		if (self.coordenadaMatricialY>1) then
 			if ((self.bitmap[self.coordenadaMatricialX][self.coordenadaMatricialY - 1] == 0) and (self.costmap[self.coordenadaMatricialX][self.coordenadaMatricialY - 1] == minimo) ) then
-				table.insert(movimentoPossivel, 'left')
+				if (charmap[self.coordenadaMatricialX][self.coordenadaMatricialY - 1] == 0) then
+					table.insert(movimentoPossivel, 'left')
+				end
 			end
 		end 
 	
@@ -153,8 +161,8 @@ end
 		self.emMovimento = true
 		
 		if (self.contadorIncremento == 0) then
-			--charmap[self.coordenadaMatricialX][self.coorMatricialY] = 1
 			self.currentFrame = 1
+			charmap[self.coordenadaMatricialX][self.coordenadaMatricialY] = 1
 		end
 		
 		if (self.contadorIncremento<64) then
@@ -175,6 +183,7 @@ end
 		else
 			self.emMovimento = false
 			self.contadorIncremento = 0
+			charmap[self.coordenadaMatricialX][self.coordenadaMatricialY] = 0
 			self.coordenadaMatricialX = self.coordenadaMatricialX + 1
 			
 		end
@@ -189,6 +198,7 @@ end
 		
 		if (self.contadorIncremento == 0) then
 			self.currentFrame = 10
+			charmap[self.coordenadaMatricialX][self.coordenadaMatricialY] = 1
 		end
 		
 		if (self.contadorIncremento<64) then
@@ -208,6 +218,7 @@ end
 		else
 			self.emMovimento = false
 			self.contadorIncremento = 0
+			charmap[self.coordenadaMatricialX][self.coordenadaMatricialY] = 0
 			self.coordenadaMatricialX = self.coordenadaMatricialX - 1
 		end
 		
@@ -221,6 +232,7 @@ end
 		
 		if (self.contadorIncremento == 0) then
 			self.currentFrame = 7
+			charmap[self.coordenadaMatricialX][self.coordenadaMatricialY] = 1
 		end
 		
 		if (self.contadorIncremento<64) then
@@ -240,6 +252,7 @@ end
 		else
 			self.emMovimento = false
 			self.contadorIncremento = 0
+			charmap[self.coordenadaMatricialX][self.coordenadaMatricialY] = 0
 			self.coordenadaMatricialY = self.coordenadaMatricialY + 1
 		end
 		
@@ -253,6 +266,7 @@ end
 		
 		if (self.contadorIncremento == 0) then
 			self.currentFrame = 4
+			charmap[self.coordenadaMatricialX][self.coordenadaMatricialY] = 1
 		end
 		
 		if (self.contadorIncremento<64) then
@@ -272,6 +286,7 @@ end
 		else
 			self.emMovimento = false
 			self.contadorIncremento = 0
+			charmap[self.coordenadaMatricialX][self.coordenadaMatricialY] = 0
 			self.coordenadaMatricialY = self.coordenadaMatricialY - 1
 		end
 		
