@@ -104,7 +104,7 @@ end
 
 function door:atualizar(dt)	
 	self.elapsedTime = self.elapsedTime + 1
-	if (self.elapsedTime == 90) then 
+	if (self.elapsedTime > 90) then
 		self.elapsedTime = 0
 		local auxiliar = Character:new()
 		self:escolher(auxiliar)
