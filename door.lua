@@ -1,7 +1,6 @@
 local Character = require "Character"
 local Sprite = require "Sprite"
 
---local steven = Character:new()
 
 local stevenSprites
 local garnetSprites
@@ -10,14 +9,7 @@ local pearlSprites
 local connieSprites
 local gregSprites
 local peridotSprites
---local individualMap
---local currentX
---local currentY
---local coorMatricialX
---local coorMatricialY
---local red
---local green
---local blue
+
 
 local door = {elapsedTime = 0, 
 			personagem = {},

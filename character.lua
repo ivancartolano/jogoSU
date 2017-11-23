@@ -176,7 +176,7 @@ end
 	
 	
 	function Character:moveUp(dt)
-		print('moveUp'.. self.contadorIncremento)
+		--print('moveUp'.. self.contadorIncremento)
 		
 		self.elapsedTime = self.elapsedTime +dt
 		self.emMovimento = true
@@ -209,7 +209,7 @@ end
 	
 	
 	function Character:moveRight(dt)
-		print('moveRight'.. self.contadorIncremento)
+		--print('moveRight'.. self.contadorIncremento)
 	
 		self.elapsedTime = self.elapsedTime +dt
 		self.emMovimento = true
@@ -242,7 +242,7 @@ end
 	
 	
 	function Character:moveLeft(dt)
-		print('moveLeft '.. self.contadorIncremento)
+		--print('moveLeft '.. self.contadorIncremento)
 	
 		self.elapsedTime = self.elapsedTime +dt
 		self.emMovimento = true
@@ -272,10 +272,7 @@ end
 		end
 		
 	end
-	
-	--function character:atualizar()
-	
-	--end
+
 	
 	function Character:desenhar(imageFile, red, green, blue)
 		love.graphics.setColor(red,green,blue,150)
