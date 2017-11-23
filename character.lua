@@ -6,7 +6,7 @@ local Character = {
 	coordenadaMatricialX=1,
 	coordenadaMatricialY=1,
 	currentX,
-	currentY = 0,
+	currentY,
 	contadorIncremento = 0,
 	elapsedTime = 0,
 	acao,
@@ -49,6 +49,7 @@ local Character = {
 		
 	function Character:stand(dt)
 		emMovimento = false
+		charmap[self.coordenadaMatricialX][self.coordenadaMatricialY] = 1
 	end	
 		
 		
@@ -73,6 +74,9 @@ local Character = {
 		
 	end
 	
+	function Character:atualizarCharMap()
+		
+	end
 	
 	function Character:least(x,y)
 		local minimo = self.costmap[x][y]
@@ -162,7 +166,8 @@ end
 		
 		if (self.contadorIncremento == 0) then
 			self.currentFrame = 1
-			charmap[self.coordenadaMatricialX][self.coordenadaMatricialY] = 1
+			--charmap[self.coordenadaMatricialX][self.coordenadaMatricialY] = 1
+			charmap[self.coordenadaMatricialX + 1][self.coordenadaMatricialY] = 1
 		end
 		
 		if (self.contadorIncremento<64) then
@@ -184,6 +189,7 @@ end
 			self.emMovimento = false
 			self.contadorIncremento = 0
 			charmap[self.coordenadaMatricialX][self.coordenadaMatricialY] = 0
+			--charmap[self.coordenadaMatricialX + 1][self.coordenadaMatricialY] = 0
 			self.coordenadaMatricialX = self.coordenadaMatricialX + 1
 			
 		end
@@ -198,7 +204,8 @@ end
 		
 		if (self.contadorIncremento == 0) then
 			self.currentFrame = 10
-			charmap[self.coordenadaMatricialX][self.coordenadaMatricialY] = 1
+			--charmap[self.coordenadaMatricialX][self.coordenadaMatricialY] = 1
+			charmap[self.coordenadaMatricialX - 1][self.coordenadaMatricialY] = 1
 		end
 		
 		if (self.contadorIncremento<64) then
@@ -219,6 +226,7 @@ end
 			self.emMovimento = false
 			self.contadorIncremento = 0
 			charmap[self.coordenadaMatricialX][self.coordenadaMatricialY] = 0
+			--charmap[self.coordenadaMatricialX - 1][self.coordenadaMatricialY] = 0
 			self.coordenadaMatricialX = self.coordenadaMatricialX - 1
 		end
 		
@@ -232,7 +240,8 @@ end
 		
 		if (self.contadorIncremento == 0) then
 			self.currentFrame = 7
-			charmap[self.coordenadaMatricialX][self.coordenadaMatricialY] = 1
+			--charmap[self.coordenadaMatricialX][self.coordenadaMatricialY] = 1
+			charmap[self.coordenadaMatricialX][self.coordenadaMatricialY + 1] = 1
 		end
 		
 		if (self.contadorIncremento<64) then
@@ -253,6 +262,7 @@ end
 			self.emMovimento = false
 			self.contadorIncremento = 0
 			charmap[self.coordenadaMatricialX][self.coordenadaMatricialY] = 0
+			--charmap[self.coordenadaMatricialX][self.coordenadaMatricialY + 1] = 0
 			self.coordenadaMatricialY = self.coordenadaMatricialY + 1
 		end
 		
@@ -266,7 +276,8 @@ end
 		
 		if (self.contadorIncremento == 0) then
 			self.currentFrame = 4
-			charmap[self.coordenadaMatricialX][self.coordenadaMatricialY] = 1
+			--charmap[self.coordenadaMatricialX][self.coordenadaMatricialY] = 1
+			charmap[self.coordenadaMatricialX][self.coordenadaMatricialY - 1] = 1
 		end
 		
 		if (self.contadorIncremento<64) then
@@ -287,6 +298,7 @@ end
 			self.emMovimento = false
 			self.contadorIncremento = 0
 			charmap[self.coordenadaMatricialX][self.coordenadaMatricialY] = 0
+			--charmap[self.coordenadaMatricialX][self.coordenadaMatricialY - 1] = 0
 			self.coordenadaMatricialY = self.coordenadaMatricialY - 1
 		end
 		

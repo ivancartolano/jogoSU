@@ -49,6 +49,7 @@ function love.load()
 
 	
 	blueDoor:carregar(imageFile, bluemap, 16,16,1,1, 0, 0, 250, blueVector )
+	--blueDoor:carregar(imageFile, bluemap, 16,16,1,1, 0, 0, 250, redVector )
 	redDoor:carregar(imageFile, redmap, 1232,592,10,20, 250, 0, 0 , redVector)
 end
 
