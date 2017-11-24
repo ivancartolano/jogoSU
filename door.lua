@@ -102,13 +102,19 @@ function door:escolher(pers)
 	end
 end
 
+
 function door:atualizar(dt)	
 	self.elapsedTime = self.elapsedTime + 1
-	if (self.elapsedTime > 150) then
+	
+	if ((self.elapsedTime == 150) and (Character:portaLivre(self.coordenadaMatricialX,self.coordenadaMatricialY ) == 0)) then
 		self.elapsedTime = 0
 		local auxiliar = Character:new()
 		self:escolher(auxiliar)
 		table.insert(self.personagem, auxiliar)
+	end
+	
+	if (self.elapsedTime == 150) then
+		self.elapsedTime = 0
 	end
 
 	for i, v in ipairs(self.personagem) do
@@ -116,6 +122,7 @@ function door:atualizar(dt)
 		
 		if (v.costmap[v.coordenadaMatricialX][v.coordenadaMatricialY]== 0) then
 			table.remove(self.personagem, i)
+			Character:setPortaToZero(v.coordenadaMatricialX,v.coordenadaMatricialY)
 		end
 	end
 end

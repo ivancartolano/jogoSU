@@ -73,10 +73,21 @@ local Character = {
 		self.nome = onome
 		self.costmap = individualMap
 		
+		charmap[self.coordenadaMatricialX][self.coordenadaMatricialY] = 1
+		
 	end
 	
 	function Character:atualizarCharMap()
 		
+	end
+	
+	function Character:portaLivre(x,y)
+		--return charmap[self.coordenadaMatricialX][self.coordenadaMatricialY]
+		return charmap[x][y]
+	end
+	
+	function Character:setPortaToZero(x,y)
+		charmap[x][y] = 0
 	end
 	
 	function Character:least(x,y)
@@ -104,6 +115,8 @@ local Character = {
 		return minimo
 	end
 
+	
+	
 --function Character:movimentoObjetivo(dt)
 --	self.contador = self.contador +1
 
@@ -167,8 +180,8 @@ function Character:movimentoObjetivo(dt)
 	if (not(self.emMovimento)) then
 		movimentoPossivel = {}
 		
-		if(charmap[self.coordenadaMatricialX][self.coordenadaMatricialY] < 320) then
------ BLOCO PRA COLOCAR NO IF		
+		if(charmap[self.coordenadaMatricialX][self.coordenadaMatricialY] < 250) then
+----- 
 			local minimo = self:least(self.coordenadaMatricialX, self.coordenadaMatricialY) 
 		
 			if (self.coordenadaMatricialX<10) then
@@ -199,7 +212,7 @@ function Character:movimentoObjetivo(dt)
 					end
 				end
 			end 
------ FIM DO BLOCO PRA COLOCAR NO IF
+----- 
 		else
 			if (self.coordenadaMatricialX<10) then
 				if ((self.bitmap[self.coordenadaMatricialX+1][self.coordenadaMatricialY ] == 0) and (charmap[self.coordenadaMatricialX+1][self.coordenadaMatricialY ] == 0) )then
