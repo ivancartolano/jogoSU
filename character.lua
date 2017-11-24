@@ -116,63 +116,6 @@ local Character = {
 	end
 
 	
-	
---function Character:movimentoObjetivo(dt)
---	self.contador = self.contador +1
-
---	if (not(self.emMovimento)) then
---		movimentoPossivel = {}
-		
---		local minimo = self:least(self.coordenadaMatricialX, self.coordenadaMatricialY) 
-		
---		if (self.coordenadaMatricialX<10) then
---			if ((self.bitmap[self.coordenadaMatricialX+1][self.coordenadaMatricialY ] == 0) and (self.costmap[self.coordenadaMatricialX+1][self.coordenadaMatricialY ] == minimo) )then
---				if(charmap[self.coordenadaMatricialX+1][self.coordenadaMatricialY ] == 0) then
---					table.insert(movimentoPossivel, 'down')
---				end
---			end
---		end
---		if (self.coordenadaMatricialX>1) then
---			if ((self.bitmap[self.coordenadaMatricialX- 1][self.coordenadaMatricialY] == 0) and (self.costmap[self.coordenadaMatricialX- 1][self.coordenadaMatricialY] == minimo) ) then
---				if(charmap[self.coordenadaMatricialX- 1][self.coordenadaMatricialY] == 0) then
---					table.insert(movimentoPossivel, 'up')
---				end
---			end
---		end
---		if (self.coordenadaMatricialY<20) then
---			if ((self.bitmap[self.coordenadaMatricialX] [self.coordenadaMatricialY + 1]== 0) and (self.costmap[self.coordenadaMatricialX] [self.coordenadaMatricialY + 1]== minimo)) then
---				if (charmap[self.coordenadaMatricialX] [self.coordenadaMatricialY + 1]== 0) then
---					table.insert(movimentoPossivel, 'right')
---				end
---			end
---		end
---		if (self.coordenadaMatricialY>1) then
---			if ((self.bitmap[self.coordenadaMatricialX][self.coordenadaMatricialY - 1] == 0) and (self.costmap[self.coordenadaMatricialX][self.coordenadaMatricialY - 1] == minimo) ) then
---				if (charmap[self.coordenadaMatricialX][self.coordenadaMatricialY - 1] == 0) then
---					table.insert(movimentoPossivel, 'left')
---				end
---			end
---		end 
-	
---		movimentoEscolhido = movimentoPossivel[math.random(#movimentoPossivel)]
-		
-		
---		if movimentoEscolhido == 'down' then
---			self.acao = self.moveDown
---		elseif (movimentoEscolhido == 'up') then
---			self.acao = self.moveUp
---		elseif movimentoEscolhido == 'right' then
---			self.acao = self.moveRight
---		elseif movimentoEscolhido == 'left' then
---			self.acao = self.moveLeft
---		else
---			self.acao = self.stand
---		end
-		
---	end
-
---	self:acao(dt)
---end
 
 function Character:movimentoObjetivo(dt)
 	self.contador = self.contador +1
@@ -180,7 +123,7 @@ function Character:movimentoObjetivo(dt)
 	if (not(self.emMovimento)) then
 		movimentoPossivel = {}
 		
-		if(charmap[self.coordenadaMatricialX][self.coordenadaMatricialY] < 250) then
+		if(charmap[self.coordenadaMatricialX][self.coordenadaMatricialY] < 200) then
 ----- 
 			local minimo = self:least(self.coordenadaMatricialX, self.coordenadaMatricialY) 
 		
