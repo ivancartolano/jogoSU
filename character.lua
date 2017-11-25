@@ -53,6 +53,10 @@ local Character = {
 		emMovimento = false
 		--charmap[self.coordenadaMatricialX][self.coordenadaMatricialY] = 1
 		charmap[self.coordenadaMatricialX][self.coordenadaMatricialY] = charmap[self.coordenadaMatricialX][self.coordenadaMatricialY] + 1
+		if(charmap[self.coordenadaMatricialX][self.coordenadaMatricialY] > 100) then
+			self.deadlock = true 
+			charmap[self.coordenadaMatricialX][self.coordenadaMatricialY] = 1
+		end
 	end	
 		
 		
@@ -150,7 +154,8 @@ function Character:movimentoObjetivo(dt)
 	if (not(self.emMovimento)) then
 		movimentoPossivel = {}
 		
-		if(charmap[self.coordenadaMatricialX][self.coordenadaMatricialY] < 100) and (not(self.deadlock)) then
+--		if(charmap[self.coordenadaMatricialX][self.coordenadaMatricialY] < 100) and (not(self.deadlock)) then
+		if((not(self.deadlock))) then
 ----- 
 			local minimo = self:least(self.coordenadaMatricialX, self.coordenadaMatricialY) 
 		
@@ -184,13 +189,14 @@ function Character:movimentoObjetivo(dt)
 			end 
 ----- 
 		else
+			self.turno = self.turno + 1
 			
-			if(self.costmap[self.coordenadaMatricialX][self.coordenadaMatricialY] < 28) then
-				self.deadlock = true
-				self.turno = self.turno + 1
-			else	
-				charmap[self.coordenadaMatricialX][self.coordenadaMatricialY] = 0
-			end
+			--if(self.costmap[self.coordenadaMatricialX][self.coordenadaMatricialY] < 28) then
+			--	self.deadlock = true
+			--	self.turno = self.turno + 1
+			--else	
+			--	charmap[self.coordenadaMatricialX][self.coordenadaMatricialY] = 0
+			--end
 			
 			if (self.turno == 3) then
 				self.deadlock = false
