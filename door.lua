@@ -114,6 +114,7 @@ function door:atualizar(dt)
 			local auxiliar = Character:new()
 			self:escolher(auxiliar)
 			table.insert(self.personagem, auxiliar)
+			print(auxiliar.deadlock)
 		end
 	end
 	
@@ -127,6 +128,12 @@ function door:atualizar(dt)
 		if (v.costmap[v.coordenadaMatricialX][v.coordenadaMatricialY]== 0) then
 			table.remove(self.personagem, i)
 			Character:setPortaToZero(v.coordenadaMatricialX,v.coordenadaMatricialY)
+		end
+		
+		if (v.costmap[v.coordenadaMatricialX][v.coordenadaMatricialY]== 28) then
+			--table.remove(self.personagem, i)
+			--Character:setPortaToZero(v.coordenadaMatricialX,v.coordenadaMatricialY)
+			print(v.deadlock)
 		end
 	end
 end

@@ -13,6 +13,8 @@ local Character = {
 	emMovimento= false,
 	contador= 0,
 	nome,
+	deadlock = false,
+	turno = 0,
 
 
 	bitmap = {
@@ -77,9 +79,9 @@ local Character = {
 		
 	end
 	
-	function Character:atualizarCharMap()
+	--function Character:atualizarCharMap()
 		
-	end
+	--end
 	
 	function Character:portaLivre(x,y)
 		--return charmap[self.coordenadaMatricialX][self.coordenadaMatricialY]
@@ -114,6 +116,31 @@ local Character = {
 		end
 		return minimo
 	end
+	
+	function Character:most(x,y)
+		local maximo = self.costmap[x][y]
+		if (x < 10) then
+			if (maximo < self.costmap[x + 1][y]) then
+				maximo = self.costmap[x + 1][y]
+			end
+		end
+		if (x > 1) then
+			if (maximo < self.costmap[x - 1][y]) then
+				maximo = self.costmap[x - 1][y]
+			end
+		end
+		if (y < 20) then
+			if (maximo < self.costmap[x][y + 1]) then
+				maximo = self.costmap[x][y + 1]
+			end
+		end
+		if ( y > 1) then 
+			if (maximo < self.costmap[x][y - 1]) then
+				maximo = self.costmap[x][y - 1]
+			end
+		end
+		return maximo
+	end
 
 	
 
@@ -123,7 +150,7 @@ function Character:movimentoObjetivo(dt)
 	if (not(self.emMovimento)) then
 		movimentoPossivel = {}
 		
-		if(charmap[self.coordenadaMatricialX][self.coordenadaMatricialY] < 200) then
+		if(charmap[self.coordenadaMatricialX][self.coordenadaMatricialY] < 100) and (not(self.deadlock)) then
 ----- 
 			local minimo = self:least(self.coordenadaMatricialX, self.coordenadaMatricialY) 
 		
@@ -157,28 +184,71 @@ function Character:movimentoObjetivo(dt)
 			end 
 ----- 
 		else
+			
+			if(self.costmap[self.coordenadaMatricialX][self.coordenadaMatricialY] < 28) then
+				self.deadlock = true
+				self.turno = self.turno + 1
+			else	
+				charmap[self.coordenadaMatricialX][self.coordenadaMatricialY] = 0
+			end
+			
+			if (self.turno == 3) then
+				self.deadlock = false
+				self.turno = 0
+			end
+			
+			local maximo = self:most(self.coordenadaMatricialX, self.coordenadaMatricialY)
+		
 			if (self.coordenadaMatricialX<10) then
-				if ((self.bitmap[self.coordenadaMatricialX+1][self.coordenadaMatricialY ] == 0) and (charmap[self.coordenadaMatricialX+1][self.coordenadaMatricialY ] == 0) )then
-					table.insert(movimentoPossivel, 'down')
+				if ((self.bitmap[self.coordenadaMatricialX+1][self.coordenadaMatricialY ] == 0) and (self.costmap[self.coordenadaMatricialX+1][self.coordenadaMatricialY ] == maximo) )then
+					if(charmap[self.coordenadaMatricialX+1][self.coordenadaMatricialY ] == 0) then
+						table.insert(movimentoPossivel, 'down')
+					end
 				end
 			end
 			if (self.coordenadaMatricialX>1) then
-				if ((self.bitmap[self.coordenadaMatricialX- 1][self.coordenadaMatricialY] == 0) and (charmap[self.coordenadaMatricialX- 1][self.coordenadaMatricialY] == 0) ) then
-					table.insert(movimentoPossivel, 'up')
+				if ((self.bitmap[self.coordenadaMatricialX- 1][self.coordenadaMatricialY] == 0) and (self.costmap[self.coordenadaMatricialX- 1][self.coordenadaMatricialY] == maximo) ) then
+					if(charmap[self.coordenadaMatricialX- 1][self.coordenadaMatricialY] == 0) then
+						table.insert(movimentoPossivel, 'up')
+					end
 				end
 			end
 			if (self.coordenadaMatricialY<20) then
-				if ((self.bitmap[self.coordenadaMatricialX] [self.coordenadaMatricialY + 1]== 0) and (charmap[self.coordenadaMatricialX] [self.coordenadaMatricialY + 1]== 0)) then
-					table.insert(movimentoPossivel, 'right')
+				if ((self.bitmap[self.coordenadaMatricialX] [self.coordenadaMatricialY + 1]== 0) and (self.costmap[self.coordenadaMatricialX] [self.coordenadaMatricialY + 1]== maximo)) then
+					if (charmap[self.coordenadaMatricialX] [self.coordenadaMatricialY + 1]== 0) then
+						table.insert(movimentoPossivel, 'right')
+					end
 				end
 			end
 			if (self.coordenadaMatricialY>1) then
-				if ((self.bitmap[self.coordenadaMatricialX][self.coordenadaMatricialY - 1] == 0) and (charmap[self.coordenadaMatricialX][self.coordenadaMatricialY - 1] == 0) ) then
-					table.insert(movimentoPossivel, 'left')
+				if ((self.bitmap[self.coordenadaMatricialX][self.coordenadaMatricialY - 1] == 0) and (self.costmap[self.coordenadaMatricialX][self.coordenadaMatricialY - 1] == maximo) ) then
+					if (charmap[self.coordenadaMatricialX][self.coordenadaMatricialY - 1] == 0) then
+						table.insert(movimentoPossivel, 'left')
+					end
 				end
-			end
+			end 
+--			if (self.coordenadaMatricialX<10) then
+--				if ((self.bitmap[self.coordenadaMatricialX+1][self.coordenadaMatricialY ] == 0) and (charmap[self.coordenadaMatricialX+1][self.coordenadaMatricialY ] == 0) )then
+--					table.insert(movimentoPossivel, 'down')
+--				end
+--			end
+--			if (self.coordenadaMatricialX>1) then
+--				if ((self.bitmap[self.coordenadaMatricialX- 1][self.coordenadaMatricialY] == 0) and (charmap[self.coordenadaMatricialX- 1][self.coordenadaMatricialY] == 0) ) then
+--					table.insert(movimentoPossivel, 'up')
+--				end
+--			end
+--			if (self.coordenadaMatricialY<20) then
+--				if ((self.bitmap[self.coordenadaMatricialX] [self.coordenadaMatricialY + 1]== 0) and (charmap[self.coordenadaMatricialX] [self.coordenadaMatricialY + 1]== 0)) then
+--					table.insert(movimentoPossivel, 'right')
+--				end
+--			end
+--			if (self.coordenadaMatricialY>1) then
+--				if ((self.bitmap[self.coordenadaMatricialX][self.coordenadaMatricialY - 1] == 0) and (charmap[self.coordenadaMatricialX][self.coordenadaMatricialY - 1] == 0) ) then
+--					table.insert(movimentoPossivel, 'left')
+--				end
+--			end
 
-		end
+		end --fim do else
 	
 		movimentoEscolhido = movimentoPossivel[math.random(#movimentoPossivel)]
 		
