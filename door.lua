@@ -106,9 +106,9 @@ end
 function door:atualizar(dt)	
 	self.elapsedTime = self.elapsedTime + 1
 	
-	local sorteio = math.random(100)
+	local sorteio = math.random(150)
 	
-	if ((self.elapsedTime > 150) and (Character:portaLivre(self.coordenadaMatricialX,self.coordenadaMatricialY ) == 0)) then
+	if ((self.elapsedTime > 200) and (Character:portaLivre(self.coordenadaMatricialX,self.coordenadaMatricialY ) == 0)) then
 		if (sorteio == 2) then
 			self.elapsedTime = 0
 			local auxiliar = Character:new()
@@ -118,9 +118,6 @@ function door:atualizar(dt)
 		end
 	end
 	
-	--if (self.elapsedTime == 120) then
-	--	self.elapsedTime = 0
-	--end
 
 	for i, v in ipairs(self.personagem) do
 		v:movimentoObjetivo(dt)
